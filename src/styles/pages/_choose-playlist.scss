@@ -45,6 +45,7 @@ $pl-h: 342px;
       );
       backdrop-filter: blur(42px);
       border-radius: $b-rad;
+      cursor: pointer;
 
       .playlist-img {
         width: $img-size;

@@ -1,0 +1,36 @@
+// imports
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+// variables
+
+//fonts
+$d-font: 'Manrope', sans-serif;
+
+// colors
+$white: #ffffff;
+$black: #000000;
+$light-grey: #e4e4e4;
+$grey: #979797;
+$purple: #8c30f5;
+$primary-color: $purple;
+
+// sizes
+$d-radius: 4px;
+$mb-1: 0.25rem;
+$mb-2: calc(2.1 * #{$mb-1});
+
+* {
+  margin: 0;
+  font-family: $d-font;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+}

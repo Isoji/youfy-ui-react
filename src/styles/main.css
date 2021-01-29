@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.main-container {
+  max-width: 628px;
+  max-height: 480px;
+  padding: 1rem 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+}
+
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar .searchbar {
+  font-size: 1.05rem;
+  display: block;
+  width: 56%;
+  background-color: #e4e4e4 !important;
+  background-position: 9px 11px !important;
+  padding: 0.4rem 0 0.4rem 1.9rem;
+  border: none;
+  border-radius: 4px;
+  color: #979797;
+}
+
+.navbar .searchbar:focus {
+  outline: none;
+  color: #000000;
+}
+
+.song-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.1rem;
+}
+
+.song-info .song-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.song-info .song-container .song-img {
+  width: 191px;
+  height: 191px;
+  -webkit-filter: drop-shadow(0px 2px 11px rgba(78, 78, 78, 0.21));
+          filter: drop-shadow(0px 2px 11px rgba(78, 78, 78, 0.21));
+  border-radius: 4px;
+  margin-right: 1.5rem;
+}
+
+.song-info .song-container .song-details {
+  color: #979797;
+  font-weight: 700;
+}
+
+.song-info .song-container .song-details h1 {
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.5rem;
+  margin-bottom: calc(2.1 * 0.25rem);
+}
+
+.song-info .song-container .song-details p {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.song-info .song-container .song-details .song-type {
+  font-size: 0.7rem;
+  margin-left: 1.5px;
+}
+
+.song-info .song-container .btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.5rem;
+  color: #8c30f5;
+}
+
+.song-info .song-container .btns .link-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.song-info .song-container .btns .link-btn:hover {
+  background-color: rgba(228, 228, 228, 0.5);
+  padding: 0.5rem 1rem;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.song-info .song-container .btns .link-btn .btn-icon {
+  height: 0.7rem;
+  width: 0.7rem;
+}
+
+.song-info .song-container .btns .link-btn .btn-text {
+  font-size: 0.9rem;
+}
+
+.song-info .line {
+  border-bottom: 0.5px solid #979797;
+}
+
+.song-info .related-container {
+  margin-top: -0.2rem;
+}
+
+.song-info .related-container h2 {
+  line-height: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.song-info .related-container .related-albums {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+
+.song-info .related-container .related-albums .one-album {
+  width: 64px;
+  height: 64px;
+}
+
+.song-info .related-container .related-albums .one-album img {
+  height: 100%;
+  width: 100%;
+  -webkit-filter: drop-shadow(0px 1px 4px rgba(78, 78, 78, 0.16));
+          filter: drop-shadow(0px 1px 4px rgba(78, 78, 78, 0.16));
+  border-radius: 4px;
+}
+
+footer {
+  font-size: 1rem;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: #8c30f5;
+  font-weight: 600;
+}
+
+footer a:hover {
+  font-weight: 800;
+}
+/*# sourceMappingURL=main.css.map */

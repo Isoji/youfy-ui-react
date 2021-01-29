@@ -18,15 +18,15 @@ const SongInfo = () => {
           <p className='song-artist'>By The Chainsmokers - 2016</p>
           <p className='song-duration'>3 min 28 sec</p>
           <div className='btns'>
-            <a className='link-btn'>
-              <img src={PlayIcon} className='btn-icon' />
+            <a className='link-btn' href='#'>
+              <img src={PlayIcon} alt='' className='btn-icon' />
               <span className='btn-text'>Play</span>
             </a>
-            <a className='link-btn'>
+            <a className='link-btn' href='#'>
               <img src={PlusIcon} className='btn-icon' />
               <span className='btn-text'>Add to Playlist</span>
             </a>
-            <a className='link-btn'>
+            <a className='link-btn' href='#'>
               <img src={MoreIcon} className='btn-icon' />
               <span className='btn-text'>More</span>
             </a>

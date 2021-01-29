@@ -1,7 +1,10 @@
 @import './base';
 
-//components
+// components
 @import './components/app';
 @import './components/navbar';
 @import './components/songInfo';
 @import './components/footer';
+
+// pages
+@import './pages/choose-playlist';

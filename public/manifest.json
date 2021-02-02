@@ -2,6 +2,11 @@
   "manifest_version": 2,
   "name": "Youfy",
   "version": "0.1.0",
+  "icons": {
+    "16": "youfy-logo.png",
+    "48": "youfy-logo.png",
+    "128": "youfy-logo-128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://youtube.com/*"],

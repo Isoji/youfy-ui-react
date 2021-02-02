@@ -322,7 +322,8 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5rem;
+  padding: 0.4rem;
+  margin-bottom: 0.25rem;
   -webkit-transition-duration: 0.36s;
           transition-duration: 0.36s;
   -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);

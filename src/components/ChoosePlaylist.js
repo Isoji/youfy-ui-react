@@ -17,8 +17,7 @@ const ChoosePlaylist = () => {
     );
   }
   return (
-    <div className='choose-playlist'>
-      <h1>Your Playlists</h1>
+    
       <div className='playlists'>
         <div className='one-playlist first'>
           <img src={PlusBig} alt='' className='playlist-img' />
@@ -28,7 +27,7 @@ const ChoosePlaylist = () => {
         </div>
         {playlists}
       </div>
-    </div>
+    
   );
 };
 

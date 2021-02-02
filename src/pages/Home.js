@@ -1,15 +1,9 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import ChoosePlaylist from '../components/ChoosePlaylist';
+
+import TransferPlaylist from './TransferPlaylist';
 
 const Home = () => {
-  return (
-    <div className='main-container'>
-      <Layout>
-        <ChoosePlaylist />
-      </Layout>
-    </div>
-  );
+  return <TransferPlaylist />;
 };
 
 export default Home;

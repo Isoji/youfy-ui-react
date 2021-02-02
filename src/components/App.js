@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
+import AddToPlaylist from '../pages/AddToPlaylist';
 import Home from '../pages/Home';
+import TransferPlaylist from '../pages/TransferPlaylist';
 
 const App = () => {
   return (
@@ -8,6 +10,8 @@ const App = () => {
       <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route path='/add-to-playlist/' component={AddToPlaylist} />
+          <Route path='/transfer-playlist/' component={TransferPlaylist} />
         </Switch>
       </Suspense>
     </Router>

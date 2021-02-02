@@ -4,7 +4,7 @@ import PlaylistImg from '../images/playlist-d-img.svg';
 import OneSongFromPl from './OneSongFromPl';
 
 import TransferIcon from '../images/transfer.svg';
-import ExportIcon from '../images/export.svg';
+import ExportIcon from '../images/export-icon.svg';
 
 const PlaylistInfo = () => {
   const songsList = useRef();

@@ -1,9 +1,16 @@
 import React from 'react';
 import PlImg1 from '../images/song-album.jpg';
 import PlusBig from '../images/plus-big.svg';
+import { useHistory } from 'react-router';
 
 const ChoosePlaylist = () => {
   let playlists = [];
+
+  const history = useHistory();
+
+  const goToNP = () => {
+    history.push(`/add-new-playlist`);
+  };
 
   for (let index = 0; index < 11; index++) {
     playlists.push(
@@ -17,17 +24,16 @@ const ChoosePlaylist = () => {
     );
   }
   return (
-    
-      <div className='playlists'>
-        <div className='one-playlist first'>
-          <img src={PlusBig} alt='' className='playlist-img' />
-          <div className='playlist-text'>
-            <h4 className='big-text'>Create New Playlist</h4>
-          </div>
+    <div className='playlists'>
+      <div className='one-playlist first' onClick={goToNP}>
+        <img src={PlusBig} alt='' className='playlist-img' />
+        <div className='playlist-text'>
+          <h4 className='big-text'>Create New Playlist</h4>
         </div>
-        {playlists}
       </div>
-    
+
+      {playlists}
+    </div>
   );
 };
 

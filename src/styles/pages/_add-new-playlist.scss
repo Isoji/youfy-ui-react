@@ -1,0 +1,51 @@
+.add-new-playlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.1rem;
+  .new-playlist-form {
+    display: flex;
+    gap: 1.1rem;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      .inputs {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        background-color: $light-grey !important;
+        border: none;
+        border-radius: $d-radius;
+        color: $grey;
+        width: 18rem;
+        &:focus {
+          color: $black;
+          outline: none;
+        }
+      }
+
+      .title {
+        font-weight: 800;
+      }
+      .desc {
+        font-size: 1rem;
+        width: 18rem;
+        height: 100%;
+        resize: none;
+      }
+
+      .btns {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        .link-btn {
+          align-items: center;
+        }
+      }
+    }
+  }
+}

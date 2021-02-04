@@ -4,7 +4,7 @@ import PlaylistInfo from '../components/PlaylistInfo';
 
 const TransferPlaylist = () => {
   return (
-    <Layout>
+    <Layout searchTitle='Playlists'>
       <div className='transfer-playlist'>
         <h1>Transfer Playlist</h1>
         <PlaylistInfo />

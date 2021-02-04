@@ -50,11 +50,11 @@ const PlaylistInfo = () => {
         </div>
       </div>
       <div className='btns'>
-        <a className='link-btn' href='/#'>
+        <a className='link-btn' href='https://youfyapp.com'>
           <img src={TransferIcon} alt='' className='btn-icon' />
           <span className='btn-text'>Transfer to Spotify</span>
         </a>
-        <a className='link-btn' href='/#'>
+        <a className='link-btn' href='https://youfyapp.com'>
           <img src={ExportIcon} alt='' className='btn-icon' />
           <span className='btn-text'>Export</span>
         </a>

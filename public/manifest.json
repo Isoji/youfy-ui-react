@@ -15,8 +15,18 @@
       "js": ["content.js"]
     }
   ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["activeTab"]
+  "permissions": [
+    "background",
+    "webNavigation",
+    "webRequest",
+    "activeTab",
+    "tabs"
+  ]
 }

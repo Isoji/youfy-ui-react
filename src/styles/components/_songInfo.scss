@@ -27,6 +27,8 @@
         font-size: 0.9rem;
         margin-bottom: $mb-1;
       }
+      .song-title {
+      }
       .song-type {
         font-size: 0.7rem;
         margin-left: 1.5px;
@@ -38,11 +40,10 @@
       gap: 0.5rem;
       color: $primary-color;
       .link-btn {
-        
       }
     }
   }
- 
+
   .related-container {
     margin-top: -0.2rem;
     h2 {

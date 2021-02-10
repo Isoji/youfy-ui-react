@@ -7,20 +7,19 @@
     "48": "youfy-logo.png",
     "128": "youfy-logo-128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://youtube.com/*"],
-      "all_frames": true,
-      "run_at": "document_idle",
-      "js": ["content.js"]
-    }
-  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
+
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["activeTab", "tabs"]
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "permissions": ["activeTab", "tabs", "storage"]
 }

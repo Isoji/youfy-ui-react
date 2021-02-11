@@ -29,6 +29,7 @@ export const formatTitle = (title) => {
     'featuring',
     'ft',
     '&',
+    ':',
     '\\|',
     ']',
     '\\[',

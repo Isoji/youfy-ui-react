@@ -41,8 +41,10 @@ export const formatTitle = (title) => {
     '  +',
   ];
 
+  // converts invalidWords array to RegExp
   const re = new RegExp(invalidWords.join('|'), 'gi');
 
+  // converting incoming title to string and then removing invalidWords from it
   title = title.toString();
   title = title.replaceAll(re, '');
   title = title.replace(/  +/g, ' ');

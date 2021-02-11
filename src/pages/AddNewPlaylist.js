@@ -4,15 +4,9 @@ import Layout from '../components/Layout';
 import PlaylistImg from '../images/playlist-d-img.svg';
 import Checkmark from '../images/checkmark.svg';
 import Cross from '../images/cross.svg';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const AddNewPlaylist = () => {
-  const history = useHistory();
-
-  const goBack = () => {
-    history.goBack();
-  };
   return (
     <>
       <Layout>

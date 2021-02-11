@@ -8,6 +8,8 @@ import MoreIcon from '../images/more.svg';
 import Related from './Related';
 import { Link } from 'react-router-dom';
 
+import { formatTitle } from '../utils/formats';
+
 const SongInfo = () => {
   const [songName, setSongName] = useState(null);
   const [url, setUrl] = useState(null);
@@ -19,7 +21,7 @@ const SongInfo = () => {
         .then((html) => {
           const doc = new DOMParser().parseFromString(html, 'text/html');
           const title = doc.querySelectorAll('title')[0];
-          setSongName(title.innerText);
+          setSongName(formatTitle(title.innerText));
           return title.innerText;
         });
   };
@@ -44,7 +46,13 @@ const SongInfo = () => {
               <p className='song-artist'>By The Chainsmokers - 2016</p>
               <p className='song-duration'>3 min 28 sec</p>
               <div className='btns'>
-                <a className='link-btn' href='https://spotify.com'>
+                <a
+                  className='link-btn'
+                  target='_blank'
+                  href={`https://open.spotify.com/search/${encodeURI(
+                    songName
+                  )}`}
+                >
                   <img src={PlayIcon} alt='' className='btn-icon' />
                   <span className='btn-text'>Play</span>
                 </a>
@@ -63,17 +71,7 @@ const SongInfo = () => {
           <Related />
         </>
       ) : (
-        <h1
-          style={{
-            width: '574px',
-            height: '320px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          Loading...
-        </h1>
+        <h1 className='loading'>Loading...</h1>
       )}
     </div>
   );

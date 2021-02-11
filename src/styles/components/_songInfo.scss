@@ -19,8 +19,8 @@
       font-weight: 700;
       h1 {
         font-weight: 800;
+        line-height: 2.1rem;
         color: $black;
-        line-height: 1.5rem;
         margin-bottom: $mb-2;
       }
       p {
@@ -54,6 +54,7 @@
     .related-albums {
       display: flex;
       gap: 1rem;
+      cursor: pointer;
       .one-album {
         width: 64px;
         height: 64px;
@@ -67,4 +68,12 @@
       }
     }
   }
+}
+
+.loading {
+  width: 574px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

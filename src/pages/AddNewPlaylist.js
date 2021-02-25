@@ -7,6 +7,8 @@ import Cross from '../images/cross.svg';
 import { Link } from 'react-router-dom';
 
 const AddNewPlaylist = () => {
+
+
   return (
     <>
       <Layout>

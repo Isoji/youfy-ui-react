@@ -9,6 +9,7 @@ import Related from './Related';
 import { Link } from 'react-router-dom';
 
 import { formatTitle } from '../utils/formats';
+import Layout from './Layout';
 
 const SongInfo = () => {
   const [songName, setSongName] = useState(null);
@@ -38,37 +39,39 @@ const SongInfo = () => {
     <div className='song-info'>
       {songName ? (
         <>
-          <div className='song-container'>
-            <img src={AlbumArt} alt='' className='song-img' />
-            <div className='song-details'>
-              <span className='song-type'>SINGLE</span>
-              <h1 className='song-title'>{songName}</h1>
-              <p className='song-artist'>By The Chainsmokers - 2016</p>
-              <p className='song-duration'>3 min 28 sec</p>
-              <div className='btns'>
-                <a
-                  className='link-btn'
-                  target='_blank'
-                  href={`https://open.spotify.com/search/${encodeURI(
-                    songName
-                  )}`}
-                >
-                  <img src={PlayIcon} alt='' className='btn-icon' />
-                  <span className='btn-text'>Play</span>
-                </a>
-                <Link to='/add-to-playlist' className='link-btn'>
-                  <img src={PlusIcon} alt='' className='btn-icon' />
-                  <span className='btn-text'>Add to Playlist</span>
-                </Link>
-                <a className='link-btn' href='https://youfyapp.com'>
-                  <img src={MoreIcon} alt='' className='btn-icon' />
-                  <span className='btn-text'>More</span>
-                </a>
+          <Layout>
+            <div className='song-container'>
+              <img src={AlbumArt} alt='' className='song-img' />
+              <div className='song-details'>
+                <span className='song-type'>SINGLE</span>
+                <h1 className='song-title'>{songName}</h1>
+                <p className='song-artist'>By The Chainsmokers - 2016</p>
+                <p className='song-duration'>3 min 28 sec</p>
+                <div className='btns'>
+                  <a
+                    className='link-btn'
+                    target='_blank'
+                    href={`https://open.spotify.com/search/${encodeURI(
+                      songName
+                    )}`}
+                  >
+                    <img src={PlayIcon} alt='' className='btn-icon' />
+                    <span className='btn-text'>Play</span>
+                  </a>
+                  <Link to='/add-to-playlist' className='link-btn'>
+                    <img src={PlusIcon} alt='' className='btn-icon' />
+                    <span className='btn-text'>Add to Playlist</span>
+                  </Link>
+                  <a className='link-btn' href='https://youfyapp.com'>
+                    <img src={MoreIcon} alt='' className='btn-icon' />
+                    <span className='btn-text'>More</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='line'></div>
-          <Related />
+            <div className='line'></div>
+            <Related />
+          </Layout>
         </>
       ) : (
         <h1 className='loading'>Loading...</h1>

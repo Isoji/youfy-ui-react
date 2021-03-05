@@ -4,6 +4,8 @@ import Layout from '../components/Layout';
 import TransferPlaylist from './TransferPlaylist';
 import SongInfo from '../components/SongInfo';
 
+import { getPlId } from '../utils/gets';
+
 const Home = () => {
   const [url, setUrl] = useState(null);
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -14,11 +16,9 @@ const Home = () => {
     <>
       {url ? (
         url.includes('https://www.youtube.com/playlist') ? (
-          <TransferPlaylist />
+          <TransferPlaylist playlistId={getPlId(url)} />
         ) : url.includes('https://www.youtube.com/watch') ? (
-          <Layout>
-            <SongInfo />
-          </Layout>
+          <SongInfo />
         ) : (
           <div
             style={{

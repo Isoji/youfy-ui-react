@@ -6,7 +6,7 @@ import OneSongFromPl from './OneSongFromPl';
 import TransferIcon from '../images/transfer.svg';
 import ExportIcon from '../images/export-icon.svg';
 
-const PlaylistInfo = () => {
+const PlaylistInfo = ({ playlistId }) => {
   const songsList = useRef();
 
   const [selectedAll, setSelectedAll] = useState(false);
@@ -17,6 +17,9 @@ const PlaylistInfo = () => {
   const playlistSongs = Array(8).fill(
     <OneSongFromPl selectedAll={selectedAll} />
   );
+
+  // your yt function
+  
 
   return (
     <>

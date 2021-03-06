@@ -13,7 +13,7 @@ import Related from './Related';
 
 const SongInfo = () => {
   const token =
-    'BQDDr1-oJiobyr6xXRp2hEc7yogK1Qk25zJDdwMqMuZgB3W242a7PZCcsLT4P4OleNHYU4PXZvB3DzKyKv5Ij4KuHRsjf8CwQHo_UI-7VfrKfSEF7PjilcBbz9VIaW9Q63G8NOgMMwrPyuGqcBmsCoRaY2dB09niUcmQL5a0ValioaPyc6Fap1r5JMyhk5vv1JBidcFdQ0P5FugL56EMR_FVaMoH2V9MkhJ5-61umhxHQWWA_i96x6MqXiqUcyigs3BjD3tZGQ';
+    'BQCmexWinUQxRmpHjOKIBUYMN4nw8ib1tVbZ5QqAu-xxZZyjaRo3uyuHUKFGbaqIZ50UMlcle3Z0RziBLLTVjXK8UHBpsXz6e6MYwv2O4eEwFkaCKR1L6_3pymz9_DPmvmBt_2sKqqQNG1e8JgVnf78QZm95OoKNbOfVBGFsfRyA6KzXcbQEIIxd1ECwx0VPLm6f63EhGoRK8SiGSfo-0pNC7RGJsQftxFnhK3cgGg9SgFCBOar8IjAinPKp3iAfpP0WwX925Q';
 
   const [songName, setSongName] = useState(null);
   const [songs, setSongs] = useState([]);

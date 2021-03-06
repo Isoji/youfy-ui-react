@@ -14,7 +14,6 @@ export const formatTitle = (title) => {
     'by',
     'official',
     'extra extended',
-    'main',
     'hd',
     'lyrics',
     'ncs release',

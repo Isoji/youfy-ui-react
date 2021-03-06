@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTitle, toMinutes } from '../utils/formats';
+import { token } from '../utils/gets';
 import Layout from './Layout';
 
 //images
@@ -12,9 +13,6 @@ import MoreIcon from '../images/more.svg';
 import Related from './Related';
 
 const SongInfo = () => {
-  const token =
-    'BQCmexWinUQxRmpHjOKIBUYMN4nw8ib1tVbZ5QqAu-xxZZyjaRo3uyuHUKFGbaqIZ50UMlcle3Z0RziBLLTVjXK8UHBpsXz6e6MYwv2O4eEwFkaCKR1L6_3pymz9_DPmvmBt_2sKqqQNG1e8JgVnf78QZm95OoKNbOfVBGFsfRyA6KzXcbQEIIxd1ECwx0VPLm6f63EhGoRK8SiGSfo-0pNC7RGJsQftxFnhK3cgGg9SgFCBOar8IjAinPKp3iAfpP0WwX925Q';
-
   const [songName, setSongName] = useState(null);
   const [songs, setSongs] = useState([]);
   const [url, setUrl] = useState(null);

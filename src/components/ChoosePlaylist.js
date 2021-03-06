@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react';
 import PlImg1 from '../images/song-album.jpg';
 import PlusBig from '../images/plus-big.svg';
 import { useHistory } from 'react-router';
+import { token } from '../utils/gets';
 
 const ChoosePlaylist = () => {
-  const token =
-    'BQCmexWinUQxRmpHjOKIBUYMN4nw8ib1tVbZ5QqAu-xxZZyjaRo3uyuHUKFGbaqIZ50UMlcle3Z0RziBLLTVjXK8UHBpsXz6e6MYwv2O4eEwFkaCKR1L6_3pymz9_DPmvmBt_2sKqqQNG1e8JgVnf78QZm95OoKNbOfVBGFsfRyA6KzXcbQEIIxd1ECwx0VPLm6f63EhGoRK8SiGSfo-0pNC7RGJsQftxFnhK3cgGg9SgFCBOar8IjAinPKp3iAfpP0WwX925Q';
-
   const [playlists, setPlaylists] = useState([]);
 
   const history = useHistory();

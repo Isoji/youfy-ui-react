@@ -4,6 +4,10 @@
   font-family: "Manrope", sans-serif;
 }
 
+body {
+  min-width: 576px;
+}
+
 h1 {
   font-size: 1.8rem;
   font-weight: 800;

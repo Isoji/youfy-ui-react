@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import axios from 'axios';
 
 import PlaylistImg from '../images/playlist-d-img.svg';
 import OneSongFromPl from './OneSongFromPl';
@@ -9,17 +10,55 @@ import ExportIcon from '../images/export-icon.svg';
 const PlaylistInfo = ({ playlistId }) => {
   const songsList = useRef();
 
+  const [playlistTitle, setPlaylistTitle] = useState(null); // title of the playlist
+  const [videoTitles, setVideoTitles] = useState(null); // collection of video titles from the playlist
+  const [videoThumbnails, setVideoThumbnails] = useState(null); // collection of video thumbnail sources from the playlist
   const [selectedAll, setSelectedAll] = useState(false);
+  const [playlistItemsURL, setPlaylistItemsURL] = useState(
+    `https://www.googleapis.com/youtube/v3/playlistItems?key=${process.env.APP_API_KEY}&part=snippet&playlistId=${playlistId[1]}&maxResults=50`
+  );
+
+  var configPlaylistItems = {
+    method: 'get',
+    url: playlistItemsURL,
+  };
+
+  var configPlaylists = {
+    method: 'get',
+    url: `https://www.googleapis.com/youtube/v3/playlists?key=${process.env.APP_API_KEY}&part=snippet&id=${playlistId[1]}`,
+  };
 
   const handleSelectAll = () => {
     selectedAll ? setSelectedAll(false) : setSelectedAll(true);
   };
+
   const playlistSongs = Array(8).fill(
     <OneSongFromPl selectedAll={selectedAll} />
   );
 
-  // your yt function
-  
+  const getPlaylistData = ({ playlistId }) => {
+    const tempVideoTitles = [];
+    const tempVideoThumbnails = [];
+
+    axios(configPlaylistItems) // gathering data using the playlistItems GET request
+      .then((response) => {
+        response.data.items.map(
+          (obj) => tempVideoTitles.push(obj.snippet.title) // adding video title strings from response into temp array
+        );
+        response.data.items.map(
+          (obj) => tempVideoThumbnails.push(obj.snippet.thumbnails.default.url) // adding video thumbnail sources from response into temp array
+        );
+        setVideoTitles(tempVideoTitles); // setting the video titles
+        setVideoThumbnails(tempVideoThumbnails); // setting the video thumbnails
+      })
+      .catch((error) => console.log('error', error));
+
+    axios(configPlaylists) // gathering data using the playlists GET request
+      .then((response) => {
+        setPlaylistTitle(response.items[0].snippet.localized.title); // setting the playlist title
+      })
+      .catch((error) => console.log('error', error));
+  };
 
   return (
     <>

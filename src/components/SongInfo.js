@@ -66,27 +66,27 @@ const SongInfo = () => {
   return (
     <Layout>
       <div className='song-info'>
-        {songs.length > 0 ? (
+        {songs.length > 0 && currentSong ? (
           <>
             <div className='song-container'>
               <img
-                src={songs[0].album.images[0].url}
+                src={currentSong.album.images[0].url}
                 alt=''
                 className='song-img'
               />
               <div className='song-details'>
-                {/* <span className='song-type'>{songs[0].type}</span> */}
-                <h1 className='song-title'>{songs[0].name}</h1>
-                <p className='song-artist'>{songs[0].artists[0].name}</p>
+                {/* <span className='song-type'>{currentSong.type}</span> */}
+                <h1 className='song-title'>{currentSong.name}</h1>
+                <p className='song-artist'>{currentSong.artists[0].name}</p>
                 <p className='song-duration'>
-                  {toMinutes(songs[0].duration_ms)}
+                  {toMinutes(currentSong.duration_ms)}
                 </p>
                 <div className='btns'>
                   <a
                     className='link-btn'
                     target='_blank'
                     rel='noreferrer'
-                    href={songs[0].external_urls.spotify}
+                    href={currentSong.external_urls.spotify}
                   >
                     <img src={PlayIcon} alt='' className='btn-icon' />
                     <span className='btn-text'>Play</span>

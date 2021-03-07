@@ -4,6 +4,10 @@
   font-family: "Manrope", sans-serif;
 }
 
+body {
+  min-width: 576px;
+}
+
 h1 {
   font-size: 1.8rem;
   font-weight: 800;
@@ -249,6 +253,7 @@ ul {
 footer {
   font-size: 1rem;
   text-align: center;
+  padding-bottom: 1rem;
 }
 
 footer a {

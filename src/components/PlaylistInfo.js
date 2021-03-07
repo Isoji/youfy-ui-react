@@ -19,7 +19,6 @@ const PlaylistInfo = ({ playlistId }) => {
   );
 
   // your yt function
-  
 
   return (
     <>

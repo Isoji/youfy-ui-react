@@ -14,7 +14,6 @@ export const formatTitle = (title) => {
     'by',
     'official',
     'extra extended',
-    'main',
     'hd',
     'lyrics',
     'ncs release',
@@ -53,4 +52,11 @@ export const formatTitle = (title) => {
   title = title.replace(/  +/g, ' ');
 
   return title;
+};
+
+export const toMinutes = (millis) => {
+  millis = parseInt(millis);
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ' min ' + seconds + ' sec';
 };

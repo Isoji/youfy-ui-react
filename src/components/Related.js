@@ -8,7 +8,7 @@ import Img6 from '../images/albumarts/6.jpg';
 import Img7 from '../images/albumarts/7.jpg';
 import Img8 from '../images/albumarts/8.jpg';
 
-const Related = () => {
+const Related = ({ songs }) => {
   let relatedAlbums = [];
   const images = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8];
 
@@ -23,7 +23,28 @@ const Related = () => {
   return (
     <div className='related-container'>
       <h2>Related</h2>
-      <div className='related-albums'>{relatedAlbums}</div>
+      <div className='related-albums'>
+        {songs &&
+          songs.slice(1).map((song, i) => {
+            if (i < 7) {
+              return (
+                <a
+                  href={songs[0].external_urls.spotify}
+                  target='_blank'
+                  rel='noreferrer'
+                  className='one-album'
+                  key={i}
+                >
+                  <img
+                    src={song.album.images[0].url}
+                    alt={song.name}
+                    title={song.name}
+                  />
+                </a>
+              );
+            } else return null;
+          })}
+      </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const PlaylistInfo = ({ playlistId }) => {
   const [videoThumbnails, setVideoThumbnails] = useState(null); // collection of video thumbnail sources from the playlist
   const [selectedAll, setSelectedAll] = useState(false);
   const [playlistItemsURL, setPlaylistItemsURL] = useState(
-    `https://www.googleapis.com/youtube/v3/playlistItems?key=${process.env.APP_API_KEY}&part=snippet&playlistId=${playlistId[1]}&maxResults=50`
+    `https://www.googleapis.com/youtube/v3/playlistItems?key=${process.env.YT_API_KEY}&part=snippet&playlistId=${playlistId[1]}&maxResults=50`
   );
 
   var configPlaylistItems = {
@@ -25,7 +25,7 @@ const PlaylistInfo = ({ playlistId }) => {
 
   var configPlaylists = {
     method: 'get',
-    url: `https://www.googleapis.com/youtube/v3/playlists?key=${process.env.APP_API_KEY}&part=snippet&id=${playlistId[1]}`,
+    url: `https://www.googleapis.com/youtube/v3/playlists?key=${process.env.YT_API_KEY}&part=snippet&id=${playlistId[1]}`,
   };
 
   const handleSelectAll = () => {
@@ -36,7 +36,7 @@ const PlaylistInfo = ({ playlistId }) => {
     <OneSongFromPl selectedAll={selectedAll} />
   );
 
-  const getPlaylistData = ({ playlistId }) => {
+  const getPlaylistData = () => {
     const tempVideoTitles = [];
     const tempVideoThumbnails = [];
 

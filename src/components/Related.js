@@ -25,25 +25,21 @@ const Related = ({ songs }) => {
       <h2>Related</h2>
       <div className='related-albums'>
         {songs &&
-          songs.slice(1).map((song, i) => {
-            if (i < 7) {
-              return (
-                <a
-                  href={songs[0].external_urls.spotify}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='one-album'
-                  key={i}
-                >
-                  <img
-                    src={song.album.images[0].url}
-                    alt={song.name}
-                    title={song.name}
-                  />
-                </a>
-              );
-            } else return null;
-          })}
+          songs.slice(1).map((song, i) => (
+            <a
+              href={songs[0].external_urls.spotify}
+              target='_blank'
+              rel='noreferrer'
+              className='one-album'
+              key={i}
+            >
+              <img
+                src={song.album.images[0].url}
+                alt={song.name}
+                title={song.name}
+              />
+            </a>
+          ))}
       </div>
     </div>
   );

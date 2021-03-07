@@ -21,7 +21,7 @@ const SongInfo = () => {
 
   const songQueryConfig = {
     method: 'get',
-    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=10`,
+    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=8`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -40,11 +40,11 @@ const SongInfo = () => {
         });
   };
 
-  const getSong = async () => {
+  const getSong = () => {
     songName &&
       axios(songQueryConfig)
         .then((response) => {
-          console.log(response.data.tracks.items[0]);
+          console.log(response.data.tracks);
           setSongs(response.data.tracks.items);
           setCurrentSong(response.data.tracks.items[0]);
         })

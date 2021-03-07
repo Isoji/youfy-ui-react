@@ -363,6 +363,58 @@ footer a:hover {
   text-overflow: ellipsis;
 }
 
+.choose-playlist .confirmation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+}
+
+.choose-playlist .confirmation .success-icon {
+  width: 2rem;
+  height: auto;
+}
+
+.choose-playlist .confirmation .msg {
+  text-align: center;
+}
+
+.choose-playlist .confirmation .msg span {
+  color: #8c30f5;
+}
+
+.choose-playlist .confirmation .btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 1rem;
+}
+
+.choose-playlist .confirmation .btns .link-btn span {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .transfer-playlist {
   display: -webkit-box;
   display: -ms-flexbox;

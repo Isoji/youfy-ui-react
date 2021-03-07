@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { SongContext } from '../utils/contexts';
 import { formatTitle, toMinutes } from '../utils/formats';
 import { token } from '../utils/gets';
 import Layout from './Layout';
@@ -16,6 +17,7 @@ const SongInfo = () => {
   const [songName, setSongName] = useState(null);
   const [songs, setSongs] = useState([]);
   const [url, setUrl] = useState(null);
+  const { currentSong, setCurrentSong } = useContext(SongContext);
 
   const songQueryConfig = {
     method: 'get',
@@ -41,11 +43,12 @@ const SongInfo = () => {
   const getSong = async () => {
     songName &&
       axios(songQueryConfig)
-        .then(function (response) {
+        .then((response) => {
           console.log(response.data.tracks.items[0]);
           setSongs(response.data.tracks.items);
+          setCurrentSong(response.data.tracks.items[0]);
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
   };
@@ -61,10 +64,10 @@ const SongInfo = () => {
   }, [url, songName]);
 
   return (
-    <div className='song-info'>
-      {songs.length > 0 ? (
-        <>
-          <Layout>
+    <Layout>
+      <div className='song-info'>
+        {songs.length > 0 ? (
+          <>
             <div className='song-container'>
               <img
                 src={songs[0].album.images[0].url}
@@ -105,12 +108,12 @@ const SongInfo = () => {
                 <Related songs={songs} />
               </>
             ) : null}
-          </Layout>
-        </>
-      ) : (
-        <h1 className='loading'>Loading...</h1>
-      )}
-    </div>
+          </>
+        ) : (
+          <h1 className='loading'>Loading...</h1>
+        )}
+      </div>
+    </Layout>
   );
 };
 

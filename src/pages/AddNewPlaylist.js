@@ -39,10 +39,10 @@ const AddNewPlaylist = () => {
 
   const createPlaylist = () => {
     axios(config)
-      .then(function (response) {
+      .then((response) => {
         console.log(response.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   };

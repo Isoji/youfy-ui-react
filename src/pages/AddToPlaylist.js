@@ -5,10 +5,7 @@ import Layout from '../components/Layout';
 const AddToPlaylist = () => {
   return (
     <Layout>
-      <div className='choose-playlist'>
-        <h1>Your Playlists</h1>
-        <ChoosePlaylist />
-      </div>
+      <ChoosePlaylist />
     </Layout>
   );
 };

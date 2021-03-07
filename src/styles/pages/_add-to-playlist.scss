@@ -78,4 +78,34 @@ $pl-h: 342px;
       }
     }
   }
+  .confirmation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    .success-icon {
+      width: 2rem;
+      height: auto;
+    }
+    .msg {
+      text-align: center;
+      span {
+        color: $primary-color;
+      }
+    }
+    .btns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 1rem;
+      .link-btn {
+        span {
+          font-size: 1rem;
+          font-weight: 700;
+        }
+      }
+    }
+  }
 }

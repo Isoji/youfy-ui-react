@@ -1,10 +1,12 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import PlImg1 from '../images/song-album.jpg';
 import PlusBig from '../images/plus-big.svg';
 import { useHistory } from 'react-router';
+import { token } from '../utils/gets';
 
 const ChoosePlaylist = () => {
-  let playlists = [];
+  const [playlists, setPlaylists] = useState([]);
 
   const history = useHistory();
 
@@ -12,17 +14,31 @@ const ChoosePlaylist = () => {
     history.push(`/add-new-playlist`);
   };
 
-  for (let index = 0; index < 11; index++) {
-    playlists.push(
-      <div className='one-playlist' key={index}>
-        <img src={PlImg1} alt='' className='playlist-img' />
-        <div className='playlist-text'>
-          <h4 className='playlist-name'>Top EDM Mix</h4>
-          <span className='playlist-owner'>By Justin Logan</span>
-        </div>
-      </div>
-    );
-  }
+  const userPlaylistsConfig = {
+    method: 'get',
+    url: 'https://api.spotify.com/v1/me/playlists',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const getPlaylists = () => {
+    axios(userPlaylistsConfig)
+      .then(function (response) {
+        setPlaylists(response.data.items);
+        console.log(response.data.items);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPlaylists();
+  }, []);
+
   return (
     <div className='playlists'>
       <div className='one-playlist first' onClick={goToNP}>
@@ -32,7 +48,23 @@ const ChoosePlaylist = () => {
         </div>
       </div>
 
-      {playlists}
+      {playlists &&
+        playlists.map((playlist, i) => (
+          <div className='one-playlist' key={i}>
+            <img
+              src={playlist.images[0] ? playlist.images[0].url : PlImg1}
+              alt={playlist.name}
+              title={playlist.name}
+              className='playlist-img'
+            />
+            <div className='playlist-text'>
+              <h4 className='playlist-name'>{playlist.name}</h4>
+              <span className='playlist-owner'>
+                By {playlist.owner.display_name}
+              </span>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };

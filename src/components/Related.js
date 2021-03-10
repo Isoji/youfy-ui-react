@@ -32,14 +32,15 @@ const Related = ({ songs }) => {
       <h2>Related</h2>
       <div className='related-albums'>
         {songs &&
-          songs.slice(1).map((song, i) => (
+          songs.map((song, i) => (
             <div className='one-album' key={i}>
               <img
                 src={song.album.images[0].url}
                 alt={song.name}
                 title={song.name}
                 onClick={changeCurrentSong}
-                data-song-index={i + 1}
+                data-song-index={i}
+                className={currentSong.id === song.id ? 'active' : ''}
               />
             </div>
           ))}

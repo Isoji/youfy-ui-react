@@ -58,7 +58,9 @@
       .one-album {
         width: 64px;
         height: 64px;
-
+        .active {
+          border-bottom: 2.7px solid $primary-color;
+        }
         img {
           height: 100%;
           width: 100%;

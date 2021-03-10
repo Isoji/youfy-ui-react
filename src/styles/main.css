@@ -38,15 +38,12 @@ h2 {
   gap: 0.4rem;
   cursor: pointer;
   padding: 0.5rem 0;
-}
-
-.link-btn:hover {
-  background-color: rgba(228, 228, 228, 0.5);
-  padding: 0.5rem 1rem;
-  -webkit-transition-duration: 0.25s;
-          transition-duration: 0.25s;
-  -webkit-transition-timing-function: ease-in-out;
-          transition-timing-function: ease-in-out;
+  /* &:hover {
+    background-color: transparentize($color: $light-grey, $amount: 0.5);
+    padding: 0.5rem 1rem;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+  } */
 }
 
 .link-btn .btn-icon {
@@ -226,6 +223,10 @@ ul {
 .song-info .related-container .related-albums .one-album {
   width: 64px;
   height: 64px;
+}
+
+.song-info .related-container .related-albums .one-album .active {
+  border-bottom: 2.7px solid #8c30f5;
 }
 
 .song-info .related-container .related-albums .one-album img {

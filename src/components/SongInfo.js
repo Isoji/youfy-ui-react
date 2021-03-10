@@ -21,7 +21,7 @@ const SongInfo = () => {
 
   const songQueryConfig = {
     method: 'get',
-    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=8`,
+    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=7`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

@@ -1,106 +1,267 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
-import PlaylistImg from '../images/playlist-d-img.svg';
 import OneSongFromPl from './OneSongFromPl';
-
 import TransferIcon from '../images/transfer.svg';
 import ExportIcon from '../images/export-icon.svg';
+import { formatTitle } from '../utils/formats';
+import { YT_API_KEY, token } from '../utils/gets';
+import { Link } from 'react-router-dom';
+import { PlaylistSongsContext } from '../utils/contexts';
+
+import Checkmark from '../images/checkmark.svg';
+import Cross from '../images/cross.svg';
 
 const PlaylistInfo = ({ playlistId }) => {
   const songsList = useRef();
+  const userId = 'yilxfvdt11z0c1myy94cyz6n6';
 
   const [playlistTitle, setPlaylistTitle] = useState(null); // title of the playlist
-  const [videoTitles, setVideoTitles] = useState(null); // collection of video titles from the playlist
-  const [videoThumbnails, setVideoThumbnails] = useState(null); // collection of video thumbnail sources from the playlist
+  const [playlistDesc, setPlaylistDesc] = useState(null); // title of the playlist
+  const [playlistVideos, setPlaylistVideos] = useState([]); // playlist video objects from the playlist
+  const [songTitle, setSongTitle] = useState(null); // title of the current song to be used for Spotify API query
   const [selectedAll, setSelectedAll] = useState(false);
-  const [playlistItemsURL, setPlaylistItemsURL] = useState(
-    `https://www.googleapis.com/youtube/v3/playlistItems?key=${process.env.YT_API_KEY}&part=snippet&playlistId=${playlistId[1]}&maxResults=50`
-  );
+  const [spotifySongs, setSpotifySongs] = useState([]); // resulted Spotify song objects from the Spotify API queries
+  const [isTransferClicked, setIsTransferClicked] = useState(null);
+  const [isPlaylistCreated, setIsPlaylistCreated] = useState(false);
+  const [targetPlaylistId, setTargetPlaylistId] = useState(null);
+  const [addToPlaylistConfig, setAddToPlaylistConfig] = useState(null);
+  const [successfulTransfer, setSuccessfulTransfer] = useState(false);
+  const { selectedSongs, setSelectedSongs } = useContext(PlaylistSongsContext);
 
-  var configPlaylistItems = {
+  const data = JSON.stringify({
+    name: playlistTitle,
+    description: playlistDesc,
+    public: false,
+  });
+
+  const youtubePlaylistItemsConfig = {
     method: 'get',
-    url: playlistItemsURL,
+    url: `https://www.googleapis.com/youtube/v3/playlistItems?key=${YT_API_KEY}&part=snippet&playlistId=${playlistId}&maxResults=50`,
   };
 
-  var configPlaylists = {
+  const youtubePlaylistsConfig = {
     method: 'get',
-    url: `https://www.googleapis.com/youtube/v3/playlists?key=${process.env.YT_API_KEY}&part=snippet&id=${playlistId[1]}`,
+    url: `https://www.googleapis.com/youtube/v3/playlists?key=${YT_API_KEY}&part=snippet&id=${playlistId}`,
+  };
+
+  const spotifySongConfig = {
+    method: 'get',
+    url: `https://api.spotify.com/v1/search?q=${songTitle}&type=track&limit=1`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const spotifyCreatePlaylistConfig = {
+    method: 'post',
+    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: data,
   };
 
   const handleSelectAll = () => {
     selectedAll ? setSelectedAll(false) : setSelectedAll(true);
   };
 
-  const playlistSongs = Array(8).fill(
-    <OneSongFromPl selectedAll={selectedAll} />
-  );
+  const handleTransferBtn = () => {
+    if (!isTransferClicked && selectedSongs.length > 0) {
+      setIsTransferClicked(true);
+    } else {
+      setIsTransferClicked(false);
+    }
+  };
 
   const getPlaylistData = () => {
-    const tempVideoTitles = [];
-    const tempVideoThumbnails = [];
-
-    axios(configPlaylistItems) // gathering data using the playlistItems GET request
+    axios(youtubePlaylistItemsConfig) // gathering data using the playlistItems GET request
       .then((response) => {
-        response.data.items.map(
-          (obj) => tempVideoTitles.push(obj.snippet.title) // adding video title strings from response into temp array
-        );
-        response.data.items.map(
-          (obj) => tempVideoThumbnails.push(obj.snippet.thumbnails.default.url) // adding video thumbnail sources from response into temp array
-        );
-        setVideoTitles(tempVideoTitles); // setting the video titles
-        setVideoThumbnails(tempVideoThumbnails); // setting the video thumbnails
+        response.data.items.map((obj) => {
+          setPlaylistVideos((playlistVideos) => [
+            // Pushing the playlistItem object into playlistVideos array state
+            ...playlistVideos,
+            obj.snippet,
+          ]);
+          setSongTitle(formatTitle(obj.snippet.title)); // Setting the formatted song title into songTitle state
+        });
       })
       .catch((error) => console.log('error', error));
 
-    axios(configPlaylists) // gathering data using the playlists GET request
+    axios(youtubePlaylistsConfig) // gathering data using the playlists GET request
       .then((response) => {
-        setPlaylistTitle(response.items[0].snippet.localized.title); // setting the playlist title
+        setPlaylistTitle(response.data.items[0].snippet.title); // Setting the playlist title into playlistTitle state
+        setPlaylistDesc(response.data.items[0].snippet.description); // Setting the playlist description into playlistDesc state
       })
       .catch((error) => console.log('error', error));
   };
 
+  const getSpotifyData = () => {
+    songTitle &&
+      axios(spotifySongConfig)
+        .then((response) => {
+          if (response.data.tracks.items[0])
+            setSpotifySongs((spotifySongs) => [
+              // Pushing the resulted song from Spotify API query into spotifySongs array state
+              ...spotifySongs,
+              response.data.tracks.items[0],
+            ]);
+        })
+        .catch((error) => console.log('error', error));
+  };
+
+  const createSpotifyPlaylist = () => {
+    axios(spotifyCreatePlaylistConfig)
+      .then((response) => {
+        setTargetPlaylistId(response.data.id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const addToSpotifyPlaylist = () => {
+    axios(addToPlaylistConfig)
+      .then((response) => {
+        setSuccessfulTransfer(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    if (successfulTransfer) {
+      setTimeout(() => {
+        setSuccessfulTransfer(false);
+        setIsTransferClicked(false);
+      }, 4000);
+    }
+  }, [successfulTransfer]);
+
+  useEffect(() => {
+    addToPlaylistConfig && addToSpotifyPlaylist();
+  }, [addToPlaylistConfig]);
+
+  useEffect(() => {
+    targetPlaylistId &&
+      setAddToPlaylistConfig({
+        method: 'post',
+        url: `https://api.spotify.com/v1/playlists/${targetPlaylistId}/tracks?uris=${selectedSongs}`,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  }, [targetPlaylistId]);
+
+  useEffect(() => {
+    songTitle && getSpotifyData();
+  }, [songTitle]);
+
+  useEffect(() => {
+    getPlaylistData();
+  }, []);
+
   return (
     <>
-      <div className='playlist-info'>
-        <div className='left'>
-          <h2 className='lbl'>Youtube Playlist</h2>
-          <div className='playlist-container'>
-            <img src={PlaylistImg} alt='' className='playlist-img' />
-            <div className='playlist-details'>
-              <span className='playlist-type'>PUBLIC</span>
-              <h1 className='playlist-title'>Favorite Songs</h1>
-              <p className='playlist-artist'>26 Songs</p>
-              <p className='playlist-duration'>Updated Today</p>
+      {playlistTitle &&
+      playlistDesc &&
+      playlistVideos.length > 0 &&
+      spotifySongs.length > 0 ? (
+        <>
+          <div className='playlist-info'>
+            <div className='left'>
+              <h2 className='lbl'>Youtube Playlist</h2>
+              <div className='playlist-container'>
+                <img
+                  src={playlistVideos[0].thumbnails.default.url}
+                  alt=''
+                  className='playlist-img'
+                />
+                <div className='playlist-details'>
+                  <h1 className='playlist-title'>{playlistTitle}</h1>
+                  <p className='playlist-artist'>
+                    {playlistVideos.length} Videos
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className='line'></div>
+            <div className='right'>
+              <div className='header'>
+                <h2 className='lbl'>Detected Songs</h2>
+                <input
+                  type='button'
+                  value={selectedAll ? 'Unselect all' : 'Select all'}
+                  className='btn'
+                  onClick={handleSelectAll}
+                />
+              </div>
+              <ul className='playlist-songs' id='pl-list' ref={songsList}>
+                {spotifySongs.map((song) => (
+                  <OneSongFromPl selectedAll={selectedAll} song={song} />
+                ))}
+              </ul>
             </div>
           </div>
-        </div>
-        <div className='line'></div>
-        <div className='right'>
-          <div className='header'>
-            <h2 className='lbl'>Detected Songs</h2>
-            <input
-              type='button'
-              value={selectedAll ? 'Unselect all' : 'Select all'}
-              className='btn'
-              onClick={handleSelectAll}
-            />
+          <div className='btns'>
+            <Link onClick={handleTransferBtn} className='link-btn'>
+              <img src={TransferIcon} alt='' className='btn-icon' />
+              <span className='btn-text'>Transfer</span>
+            </Link>
+            <a className='link-btn' href='https://youfyapp.com'>
+              <img src={ExportIcon} alt='' className='btn-icon' />
+              <span className='btn-text'>Export</span>
+            </a>
           </div>
-          <ul className='playlist-songs' id='pl-list' ref={songsList}>
-            {playlistSongs}
-          </ul>
-        </div>
-      </div>
-      <div className='btns'>
-        <a className='link-btn' href='https://youfyapp.com'>
-          <img src={TransferIcon} alt='' className='btn-icon' />
-          <span className='btn-text'>Transfer to Spotify</span>
-        </a>
-        <a className='link-btn' href='https://youfyapp.com'>
-          <img src={ExportIcon} alt='' className='btn-icon' />
-          <span className='btn-text'>Export</span>
-        </a>
-      </div>
+          {isTransferClicked ? (
+            <>
+              {successfulTransfer ? (
+                <>
+                  <img src={Checkmark} alt='' className='success-icon' />
+                  <h1 className='msg'>
+                    <span>"{playlistTitle}"</span> successfully added to
+                    Spotify!
+                  </h1>
+                </>
+              ) : (
+                <>
+                  <h1 className='msg'>
+                    Do you want to convert the selected songs as
+                    <span> "{playlistTitle}" </span>to Spotify?
+                  </h1>
+                  <div className='btns'>
+                    <Link
+                      onClick={
+                        (() => setSelectedSongs(selectedSongs.join(', ')),
+                        createSpotifyPlaylist)
+                      }
+                      className='link-btn'
+                    >
+                      <img src={Checkmark} alt='' className='btn-icon' />
+                      <span className='btn-text'>Yes</span>
+                    </Link>
+                    <Link
+                      onClick={() => setIsTransferClicked(false)}
+                      className='link-btn'
+                    >
+                      <img src={Cross} alt='' className='btn-icon' />
+                      <span className='btn-text'>No</span>
+                    </Link>
+                  </div>
+                </>
+              )}
+            </>
+          ) : null}
+        </>
+      ) : (
+        <h1 className='loading'>Loading...</h1>
+      )}
     </>
   );
 };

@@ -2,11 +2,11 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const Layout = ({ children, searchTitle }) => {
+const Layout = ({ children }) => {
   return (
     <>
       <div className='main-container'>
-        <Navbar searchTitle={searchTitle} />
+        <Navbar />
         {children}
         <Footer />
       </div>

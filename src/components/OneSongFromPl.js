@@ -1,15 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { toMinutes } from '../utils/formats';
+import { PlaylistSongsContext } from '../utils/contexts';
 
-const OneSongFromPl = ({ selectedAll, checkSelected, song }) => {
+const OneSongFromPl = ({ selectedAll, song }) => {
   const [checked, setChecked] = useState(false);
+  const { selectedSongs, setSelectedSongs } = useContext(PlaylistSongsContext);
 
   const handleChecked = () => {
-    checked ? setChecked(false) : setChecked(true);
+    if (checked) {
+      setChecked(false);
+      setSelectedSongs(selectedSongs.filter((item) => item !== song.uri)); // Removes the clicked song from selectedSongs array context
+    } else if (!checked) {
+      setChecked(true);
+      setSelectedSongs((selectedSongs) => [...selectedSongs, song.uri]); // Adds the clicked song into selectedSongs array context
+    }
   };
 
   useEffect(() => {
-    selectedAll ? setChecked(true) : setChecked(false);
+    if (selectedAll) {
+      setChecked(true);
+      setSelectedSongs((selectedSongs) => [...selectedSongs, song.uri]);
+    } else if (!selectedAll) {
+      setChecked(false);
+      setSelectedSongs([]); // Sets selectedSongs to empty array context
+    }
   }, [selectedAll]);
 
   return (
@@ -17,7 +31,6 @@ const OneSongFromPl = ({ selectedAll, checkSelected, song }) => {
       <li
         className={checked ? 'one-song checked' : 'one-song'}
         onClick={handleChecked}
-        onChange={checkSelected}
         data-checked={checked}
       >
         <div className='left'>

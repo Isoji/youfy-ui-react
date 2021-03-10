@@ -4,7 +4,7 @@ import AddNewPlaylist from '../pages/AddNewPlaylist';
 import AddToPlaylist from '../pages/AddToPlaylist';
 import Home from '../pages/Home';
 import TransferPlaylist from '../pages/TransferPlaylist';
-import { SongContext } from '../utils/contexts';
+import { SongContext, PlaylistSongsContext } from '../utils/contexts';
 
 const App = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -13,15 +13,23 @@ const App = () => {
     setCurrentSong,
   ]);
 
+  const [selectedSongs, setSelectedSongs] = useState([]);
+  const selectedSongsValue = useMemo(
+    () => ({ selectedSongs, setSelectedSongs }),
+    [selectedSongs, setSelectedSongs]
+  );
+
   return (
     <Router>
       <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
           <SongContext.Provider value={songValue}>
-            <Route exact path='/' component={Home} />
-            <Route path='/add-to-playlist/' component={AddToPlaylist} />
-            <Route path='/transfer-playlist/' component={TransferPlaylist} />
-            <Route path='/add-new-playlist/' component={AddNewPlaylist} />
+            <PlaylistSongsContext.Provider value={selectedSongsValue}>
+              <Route exact path='/' component={Home} />
+              <Route path='/add-to-playlist/' component={AddToPlaylist} />
+              <Route path='/transfer-playlist/' component={TransferPlaylist} />
+              <Route path='/add-new-playlist/' component={AddNewPlaylist} />
+            </PlaylistSongsContext.Provider>
           </SongContext.Provider>
         </Switch>
       </Suspense>

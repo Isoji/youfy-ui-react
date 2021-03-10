@@ -1,33 +1,50 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
 import OneSongFromPl from './OneSongFromPl';
 import TransferIcon from '../images/transfer.svg';
 import ExportIcon from '../images/export-icon.svg';
 import { formatTitle } from '../utils/formats';
-import { token } from '../utils/gets';
+import { YT_API_KEY, token } from '../utils/gets';
+import { Link } from 'react-router-dom';
+import { PlaylistSongsContext } from '../utils/contexts';
+
+import Checkmark from '../images/checkmark.svg';
+import Cross from '../images/cross.svg';
 
 const PlaylistInfo = ({ playlistId }) => {
-  const YT_API_KEY = 'AIzaSyC6vmYcT-hJnW2dS_gf3X8oHDQWR64z-G8';
   const songsList = useRef();
+  const userId = 'yilxfvdt11z0c1myy94cyz6n6';
 
   const [playlistTitle, setPlaylistTitle] = useState(null); // title of the playlist
+  const [playlistDesc, setPlaylistDesc] = useState(null); // title of the playlist
   const [playlistVideos, setPlaylistVideos] = useState([]); // playlist video objects from the playlist
   const [songTitle, setSongTitle] = useState(null); // title of the current song to be used for Spotify API query
   const [selectedAll, setSelectedAll] = useState(false);
   const [spotifySongs, setSpotifySongs] = useState([]); // resulted Spotify song objects from the Spotify API queries
+  const [isTransferClicked, setIsTransferClicked] = useState(null);
+  const [isPlaylistCreated, setIsPlaylistCreated] = useState(false);
+  const [targetPlaylistId, setTargetPlaylistId] = useState(null);
+  const [addToPlaylistConfig, setAddToPlaylistConfig] = useState(null);
+  const [successfulTransfer, setSuccessfulTransfer] = useState(false);
+  const { selectedSongs, setSelectedSongs } = useContext(PlaylistSongsContext);
 
-  const playlistItemsQueryConfig = {
+  const data = JSON.stringify({
+    name: playlistTitle,
+    description: playlistDesc,
+    public: false,
+  });
+
+  const youtubePlaylistItemsConfig = {
     method: 'get',
     url: `https://www.googleapis.com/youtube/v3/playlistItems?key=${YT_API_KEY}&part=snippet&playlistId=${playlistId}&maxResults=50`,
   };
 
-  const playlistsQueryConfig = {
+  const youtubePlaylistsConfig = {
     method: 'get',
     url: `https://www.googleapis.com/youtube/v3/playlists?key=${YT_API_KEY}&part=snippet&id=${playlistId}`,
   };
 
-  const spotifySongQueryConfig = {
+  const spotifySongConfig = {
     method: 'get',
     url: `https://api.spotify.com/v1/search?q=${songTitle}&type=track&limit=1`,
     headers: {
@@ -37,12 +54,31 @@ const PlaylistInfo = ({ playlistId }) => {
     },
   };
 
+  const spotifyCreatePlaylistConfig = {
+    method: 'post',
+    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    data: data,
+  };
+
   const handleSelectAll = () => {
     selectedAll ? setSelectedAll(false) : setSelectedAll(true);
   };
 
+  const handleTransferBtn = () => {
+    if (!isTransferClicked && selectedSongs.length > 0) {
+      setIsTransferClicked(true);
+    } else {
+      setIsTransferClicked(false);
+    }
+  };
+
   const getPlaylistData = () => {
-    axios(playlistItemsQueryConfig) // gathering data using the playlistItems GET request
+    axios(youtubePlaylistItemsConfig) // gathering data using the playlistItems GET request
       .then((response) => {
         response.data.items.map((obj) => {
           setPlaylistVideos((playlistVideos) => [
@@ -55,16 +91,17 @@ const PlaylistInfo = ({ playlistId }) => {
       })
       .catch((error) => console.log('error', error));
 
-    axios(playlistsQueryConfig) // gathering data using the playlists GET request
+    axios(youtubePlaylistsConfig) // gathering data using the playlists GET request
       .then((response) => {
-        setPlaylistTitle(response.data.items[0].snippet.localized.title); // setting the playlist title
+        setPlaylistTitle(response.data.items[0].snippet.title); // Setting the playlist title into playlistTitle state
+        setPlaylistDesc(response.data.items[0].snippet.description); // Setting the playlist description into playlistDesc state
       })
       .catch((error) => console.log('error', error));
   };
 
   const getSpotifyData = () => {
     songTitle &&
-      axios(spotifySongQueryConfig)
+      axios(spotifySongConfig)
         .then((response) => {
           if (response.data.tracks.items[0])
             setSpotifySongs((spotifySongs) => [
@@ -76,20 +113,66 @@ const PlaylistInfo = ({ playlistId }) => {
         .catch((error) => console.log('error', error));
   };
 
+  const createSpotifyPlaylist = () => {
+    axios(spotifyCreatePlaylistConfig)
+      .then((response) => {
+        setTargetPlaylistId(response.data.id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const addToSpotifyPlaylist = () => {
+    axios(addToPlaylistConfig)
+      .then((response) => {
+        setSuccessfulTransfer(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    if (successfulTransfer) {
+      setTimeout(() => {
+        setSuccessfulTransfer(false);
+        setIsTransferClicked(false);
+      }, 4000);
+    }
+  }, [successfulTransfer]);
+
+  useEffect(() => {
+    addToPlaylistConfig && addToSpotifyPlaylist();
+  }, [addToPlaylistConfig]);
+
+  useEffect(() => {
+    targetPlaylistId &&
+      setAddToPlaylistConfig({
+        method: 'post',
+        url: `https://api.spotify.com/v1/playlists/${targetPlaylistId}/tracks?uris=${selectedSongs}`,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  }, [targetPlaylistId]);
+
+  useEffect(() => {
+    songTitle && getSpotifyData();
+  }, [songTitle]);
+
   useEffect(() => {
     getPlaylistData();
   }, []);
 
-  // Runs everytime songTitle is changed
-  useEffect(() => {
-    if (songTitle) {
-      getSpotifyData();
-    }
-  }, [songTitle]);
-
   return (
     <>
-      {playlistTitle && playlistVideos.length > 0 && spotifySongs.length > 0 ? (
+      {playlistTitle &&
+      playlistDesc &&
+      playlistVideos.length > 0 &&
+      spotifySongs.length > 0 ? (
         <>
           <div className='playlist-info'>
             <div className='left'>
@@ -120,22 +203,61 @@ const PlaylistInfo = ({ playlistId }) => {
                 />
               </div>
               <ul className='playlist-songs' id='pl-list' ref={songsList}>
-                {spotifySongs.map((song, i) => (
+                {spotifySongs.map((song) => (
                   <OneSongFromPl selectedAll={selectedAll} song={song} />
                 ))}
               </ul>
             </div>
           </div>
           <div className='btns'>
-            <a className='link-btn' href='https://youfyapp.com'>
+            <Link onClick={handleTransferBtn} className='link-btn'>
               <img src={TransferIcon} alt='' className='btn-icon' />
-              <span className='btn-text'>Transfer to Spotify</span>
-            </a>
+              <span className='btn-text'>Transfer</span>
+            </Link>
             <a className='link-btn' href='https://youfyapp.com'>
               <img src={ExportIcon} alt='' className='btn-icon' />
               <span className='btn-text'>Export</span>
             </a>
           </div>
+          {isTransferClicked ? (
+            <>
+              {successfulTransfer ? (
+                <>
+                  <img src={Checkmark} alt='' className='success-icon' />
+                  <h1 className='msg'>
+                    <span>"{playlistTitle}"</span> successfully added to
+                    Spotify!
+                  </h1>
+                </>
+              ) : (
+                <>
+                  <h1 className='msg'>
+                    Do you want to convert the selected songs as
+                    <span> "{playlistTitle}" </span>to Spotify?
+                  </h1>
+                  <div className='btns'>
+                    <Link
+                      onClick={
+                        (() => setSelectedSongs(selectedSongs.join(', ')),
+                        createSpotifyPlaylist)
+                      }
+                      className='link-btn'
+                    >
+                      <img src={Checkmark} alt='' className='btn-icon' />
+                      <span className='btn-text'>Yes</span>
+                    </Link>
+                    <Link
+                      onClick={() => setIsTransferClicked(false)}
+                      className='link-btn'
+                    >
+                      <img src={Cross} alt='' className='btn-icon' />
+                      <span className='btn-text'>No</span>
+                    </Link>
+                  </div>
+                </>
+              )}
+            </>
+          ) : null}
         </>
       ) : (
         <h1 className='loading'>Loading...</h1>

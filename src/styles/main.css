@@ -198,8 +198,18 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 0.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   color: #8c30f5;
+}
+
+.song-info .song-container .btns .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .song-info .related-container {
@@ -632,6 +642,15 @@ footer a:hover {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 1.1rem;
+}
+
+.add-new-playlist .success-icon {
+  width: 2rem;
+  height: auto;
+}
+
+.add-new-playlist .msg {
+  text-align: center;
 }
 
 .add-new-playlist .new-playlist-form {

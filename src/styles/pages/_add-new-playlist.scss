@@ -4,6 +4,13 @@
   align-items: center;
   flex-direction: column;
   gap: 1.1rem;
+  .success-icon {
+    width: 2rem;
+    height: auto;
+  }
+  .msg {
+    text-align: center;
+  }
   .new-playlist-form {
     display: flex;
     gap: 1.1rem;

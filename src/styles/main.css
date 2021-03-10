@@ -38,15 +38,12 @@ h2 {
   gap: 0.4rem;
   cursor: pointer;
   padding: 0.5rem 0;
-}
-
-.link-btn:hover {
-  background-color: rgba(228, 228, 228, 0.5);
-  padding: 0.5rem 1rem;
-  -webkit-transition-duration: 0.25s;
-          transition-duration: 0.25s;
-  -webkit-transition-timing-function: ease-in-out;
-          transition-timing-function: ease-in-out;
+  /* &:hover {
+    background-color: transparentize($color: $light-grey, $amount: 0.5);
+    padding: 0.5rem 1rem;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+  } */
 }
 
 .link-btn .btn-icon {
@@ -201,8 +198,18 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 0.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   color: #8c30f5;
+}
+
+.song-info .song-container .btns .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .song-info .related-container {
@@ -226,6 +233,10 @@ ul {
 .song-info .related-container .related-albums .one-album {
   width: 64px;
   height: 64px;
+}
+
+.song-info .related-container .related-albums .one-album .active {
+  border-bottom: 2.7px solid #8c30f5;
 }
 
 .song-info .related-container .related-albums .one-album img {
@@ -631,6 +642,15 @@ footer a:hover {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 1.1rem;
+}
+
+.add-new-playlist .success-icon {
+  width: 2rem;
+  height: auto;
+}
+
+.add-new-playlist .msg {
+  text-align: center;
 }
 
 .add-new-playlist .new-playlist-form {

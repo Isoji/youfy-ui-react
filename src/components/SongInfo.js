@@ -17,11 +17,12 @@ const SongInfo = () => {
   const [songName, setSongName] = useState(null);
   const [songs, setSongs] = useState([]);
   const [url, setUrl] = useState(null);
+  const [more, setMore] = useState(false);
   const { currentSong, setCurrentSong } = useContext(SongContext);
 
   const songQueryConfig = {
     method: 'get',
-    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=8`,
+    url: `https://api.spotify.com/v1/search?q=${songName}&type=track&limit=7`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -53,6 +54,10 @@ const SongInfo = () => {
         });
   };
 
+  const handleMoreBtn = () => {
+    more ? setMore(false) : setMore(true);
+  };
+
   useEffect(() => {
     getTitle();
     getSong();
@@ -82,23 +87,55 @@ const SongInfo = () => {
                   {toMinutes(currentSong.duration_ms)}
                 </p>
                 <div className='btns'>
-                  <a
-                    className='link-btn'
-                    target='_blank'
-                    rel='noreferrer'
-                    href={currentSong.external_urls.spotify}
-                  >
-                    <img src={PlayIcon} alt='' className='btn-icon' />
-                    <span className='btn-text'>Play</span>
-                  </a>
-                  <Link to='/add-to-playlist' className='link-btn'>
-                    <img src={PlusIcon} alt='' className='btn-icon' />
-                    <span className='btn-text'>Add to Playlist</span>
-                  </Link>
-                  <a className='link-btn' href='https://youfyapp.com'>
-                    <img src={MoreIcon} alt='' className='btn-icon' />
-                    <span className='btn-text'>More</span>
-                  </a>
+                  <div className='row'>
+                    <a
+                      className='link-btn'
+                      target='_blank'
+                      rel='noreferrer'
+                      href={currentSong.external_urls.spotify}
+                    >
+                      <img src={PlayIcon} alt='' className='btn-icon' />
+                      <span className='btn-text'>Play</span>
+                    </a>
+                    <Link to='/add-to-playlist' className='link-btn'>
+                      <img src={PlusIcon} alt='' className='btn-icon' />
+                      <span className='btn-text'>Add to Playlist</span>
+                    </Link>
+                    <a
+                      className='link-btn'
+                      href='https://youfyapp.com'
+                      onClick={handleMoreBtn}
+                    >
+                      <img src={MoreIcon} alt='' className='btn-icon' />
+                      <span className='btn-text'>{more ? 'Less' : 'More'}</span>
+                    </a>
+                  </div>
+                  {more ? (
+                    <>
+                      <div className='row'>
+                        <a
+                          className='link-btn'
+                          target='_blank'
+                          href={encodeURI(
+                            `https://music.apple.com/search?term=${currentSong.name}`
+                          )}
+                        >
+                          <img src={PlayIcon} alt='' className='btn-icon' />
+                          <span className='btn-text'>Apple Music</span>
+                        </a>
+                        <a
+                          className='link-btn'
+                          target='_blank'
+                          href={encodeURI(
+                            `https://music.amazon.com/search/${currentSong.name}`
+                          )}
+                        >
+                          <img src={PlayIcon} alt='' className='btn-icon' />
+                          <span className='btn-text'>Amazon Music</span>
+                        </a>
+                      </div>
+                    </>
+                  ) : null}
                 </div>
               </div>
             </div>

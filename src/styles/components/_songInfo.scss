@@ -37,8 +37,12 @@
 
     .btns {
       display: flex;
-      gap: 0.5rem;
+      flex-direction: column;
       color: $primary-color;
+      .row {
+        display: flex;
+        gap: 0.5rem;
+      }
       .link-btn {
       }
     }

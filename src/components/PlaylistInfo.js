@@ -23,10 +23,10 @@ const PlaylistInfo = ({ playlistId }) => {
   const [selectedAll, setSelectedAll] = useState(false);
   const [spotifySongs, setSpotifySongs] = useState([]); // resulted Spotify song objects from the Spotify API queries
   const [isTransferClicked, setIsTransferClicked] = useState(null);
-  const [isPlaylistCreated, setIsPlaylistCreated] = useState(false);
   const [targetPlaylistId, setTargetPlaylistId] = useState(null);
   const [addToPlaylistConfig, setAddToPlaylistConfig] = useState(null);
   const [successfulTransfer, setSuccessfulTransfer] = useState(false);
+  const [noResults, setNoResults] = useState(false);
   const { selectedSongs, setSelectedSongs } = useContext(PlaylistSongsContext);
 
   const data = JSON.stringify({
@@ -104,12 +104,13 @@ const PlaylistInfo = ({ playlistId }) => {
     songTitle &&
       axios(spotifySongConfig)
         .then((response) => {
-          if (response.data.tracks.items[0])
+          if (response.data.tracks.items[0]) {
             setSpotifySongs((spotifySongs) => [
               // Pushing the resulted song from Spotify API query into spotifySongs array state
               ...spotifySongs,
               response.data.tracks.items[0],
             ]);
+          }
         })
         .catch((error) => console.log('error', error));
   };
@@ -181,6 +182,13 @@ const PlaylistInfo = ({ playlistId }) => {
   useEffect(() => {
     getPlaylistData();
   }, []);
+  useEffect(() => {
+    if (spotifySongs.length === 0) {
+      setTimeout(() => {
+        setNoResults(true);
+      }, 6000);
+    }
+  }, [spotifySongs]);
 
   return (
     <>
@@ -276,7 +284,11 @@ const PlaylistInfo = ({ playlistId }) => {
             )}
           </>
         ) : (
-          <h1 className='loading'>Loading...</h1>
+          <h1 className='loading'>
+            {noResults
+              ? "Sorry, we can't detect any song from this playlist."
+              : 'Loading...'}
+          </h1>
         )}
       </div>
     </>

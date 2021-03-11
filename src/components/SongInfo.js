@@ -18,6 +18,7 @@ const SongInfo = () => {
   const [songs, setSongs] = useState([]);
   const [url, setUrl] = useState(null);
   const [more, setMore] = useState(false);
+  const [songFound, setSongFound] = useState(true);
   const { currentSong, setCurrentSong } = useContext(SongContext);
 
   const songQueryConfig = {
@@ -46,8 +47,12 @@ const SongInfo = () => {
       axios(songQueryConfig)
         .then((response) => {
           console.log(response.data.tracks);
-          setSongs(response.data.tracks.items);
-          setCurrentSong(response.data.tracks.items[0]);
+          if (response.data.tracks.items[0]) {
+            setSongs(response.data.tracks.items);
+            setCurrentSong(response.data.tracks.items[0]);
+          } else {
+            setSongFound(false);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -147,7 +152,9 @@ const SongInfo = () => {
             ) : null}
           </>
         ) : (
-          <h1 className='loading'>Loading...</h1>
+          <h1 className='loading'>
+            {songFound ? 'Loading...' : "Sorry, we can't detect the song."}
+          </h1>
         )}
       </div>
     </Layout>

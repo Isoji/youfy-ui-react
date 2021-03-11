@@ -71,6 +71,10 @@ ul {
   border-bottom: 0.5px solid #979797;
 }
 
+.loading {
+  text-align: center;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 4px;

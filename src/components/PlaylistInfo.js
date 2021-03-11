@@ -169,99 +169,101 @@ const PlaylistInfo = ({ playlistId }) => {
 
   return (
     <>
-      {playlistTitle &&
-      playlistDesc &&
-      playlistVideos.length > 0 &&
-      spotifySongs.length > 0 ? (
-        <>
-          <div className='playlist-info'>
-            <div className='left'>
-              <h2 className='lbl'>Youtube Playlist</h2>
-              <div className='playlist-container'>
-                <img
-                  src={playlistVideos[0].thumbnails.default.url}
-                  alt=''
-                  className='playlist-img'
-                />
-                <div className='playlist-details'>
-                  <h1 className='playlist-title'>{playlistTitle}</h1>
-                  <p className='playlist-artist'>
-                    {playlistVideos.length} Videos
-                  </p>
+      <div className='transfer-playlist'>
+        {playlistTitle &&
+        playlistDesc &&
+        playlistVideos.length > 0 &&
+        spotifySongs.length > 0 &&
+        !isTransferClicked ? (
+          <>
+            <h1>Transfer Playlist</h1>
+            <div className='playlist-info'>
+              <div className='left'>
+                <h2 className='lbl'>Youtube Playlist</h2>
+                <div className='playlist-container'>
+                  <img
+                    src={playlistVideos[0].thumbnails.default.url}
+                    alt=''
+                    className='playlist-img'
+                  />
+                  <div className='playlist-details'>
+                    <h1 className='playlist-title'>{playlistTitle}</h1>
+                    <p className='playlist-artist'>
+                      {playlistVideos.length} Videos
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className='line'></div>
-            <div className='right'>
-              <div className='header'>
-                <h2 className='lbl'>Detected Songs</h2>
-                <input
-                  type='button'
-                  value={selectedAll ? 'Unselect all' : 'Select all'}
-                  className='btn'
-                  onClick={handleSelectAll}
-                />
+              <div className='line'></div>
+              <div className='right'>
+                <div className='header'>
+                  <h2 className='lbl'>Detected Songs</h2>
+                  <input
+                    type='button'
+                    value={selectedAll ? 'Unselect all' : 'Select all'}
+                    className='btn'
+                    onClick={handleSelectAll}
+                  />
+                </div>
+                <ul className='playlist-songs' id='pl-list' ref={songsList}>
+                  {spotifySongs.map((song) => (
+                    <OneSongFromPl selectedAll={selectedAll} song={song} />
+                  ))}
+                </ul>
               </div>
-              <ul className='playlist-songs' id='pl-list' ref={songsList}>
-                {spotifySongs.map((song) => (
-                  <OneSongFromPl selectedAll={selectedAll} song={song} />
-                ))}
-              </ul>
             </div>
-          </div>
-          <div className='btns'>
-            <Link onClick={handleTransferBtn} className='link-btn'>
-              <img src={TransferIcon} alt='' className='btn-icon' />
-              <span className='btn-text'>Transfer</span>
-            </Link>
-            <a className='link-btn' href='https://youfyapp.com'>
-              <img src={ExportIcon} alt='' className='btn-icon' />
-              <span className='btn-text'>Export</span>
-            </a>
-          </div>
-          {isTransferClicked ? (
-            <>
-              {successfulTransfer ? (
-                <>
-                  <img src={Checkmark} alt='' className='success-icon' />
-                  <h1 className='msg'>
-                    <span>"{playlistTitle}"</span> successfully added to
-                    Spotify!
-                  </h1>
-                </>
-              ) : (
-                <>
-                  <h1 className='msg'>
-                    Do you want to convert the selected songs as
-                    <span> "{playlistTitle}" </span>to Spotify?
-                  </h1>
-                  <div className='btns'>
-                    <Link
-                      onClick={
-                        (() => setSelectedSongs(selectedSongs.join(', ')),
-                        createSpotifyPlaylist)
-                      }
-                      className='link-btn'
-                    >
-                      <img src={Checkmark} alt='' className='btn-icon' />
-                      <span className='btn-text'>Yes</span>
-                    </Link>
-                    <Link
-                      onClick={() => setIsTransferClicked(false)}
-                      className='link-btn'
-                    >
-                      <img src={Cross} alt='' className='btn-icon' />
-                      <span className='btn-text'>No</span>
-                    </Link>
-                  </div>
-                </>
-              )}
-            </>
-          ) : null}
-        </>
-      ) : (
-        <h1 className='loading'>Loading...</h1>
-      )}
+            <div className='btns'>
+              <Link onClick={handleTransferBtn} className='link-btn'>
+                <img src={TransferIcon} alt='' className='btn-icon' />
+                <span className='btn-text'>Transfer</span>
+              </Link>
+              <a className='link-btn' href='https://youfyapp.com'>
+                <img src={ExportIcon} alt='' className='btn-icon' />
+                <span className='btn-text'>Export</span>
+              </a>
+            </div>
+          </>
+        ) : isTransferClicked ? (
+          <>
+            {successfulTransfer ? (
+              <>
+                <img src={Checkmark} alt='' className='success-icon' />
+                <h1 className='msg'>
+                  <span>"{playlistTitle}"</span> successfully added to Spotify!
+                </h1>
+              </>
+            ) : (
+              <>
+                <h1 className='msg'>
+                  Do you want to convert the selected songs as
+                  <span> "{playlistTitle}" </span>to Spotify?
+                </h1>
+                <div className='btns'>
+                  <Link
+                    onClick={
+                      (() => setSelectedSongs(selectedSongs.join(', ')),
+                      createSpotifyPlaylist)
+                    }
+                    className='link-btn'
+                  >
+                    <img src={Checkmark} alt='' className='btn-icon' />
+                    <span className='btn-text'>Yes</span>
+                  </Link>
+                  <Link
+                    onClick={() => setIsTransferClicked(false)}
+                    className='link-btn'
+                  >
+                    <img src={Cross} alt='' className='btn-icon' />
+                    <span className='btn-text'>No</span>
+                  </Link>
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <h1 className='loading'>Loading...</h1>
+        )}
+      </div>
     </>
   );
 };

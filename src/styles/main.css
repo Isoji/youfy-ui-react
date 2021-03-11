@@ -400,10 +400,6 @@ footer a:hover {
   text-align: center;
 }
 
-.choose-playlist .confirmation .msg span {
-  color: #8c30f5;
-}
-
 .choose-playlist .confirmation .btns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -441,6 +437,15 @@ footer a:hover {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 1rem;
+}
+
+.transfer-playlist .success-icon {
+  width: 2rem;
+  height: auto;
+}
+
+.transfer-playlist .msg {
+  text-align: center;
 }
 
 .transfer-playlist .playlist-info {

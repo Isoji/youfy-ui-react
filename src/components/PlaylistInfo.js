@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
+import { saveAs } from 'file-saver';
 import axios from 'axios';
 import OneSongFromPl from './OneSongFromPl';
 import TransferIcon from '../images/transfer.svg';
@@ -133,6 +134,20 @@ const PlaylistInfo = ({ playlistId }) => {
       });
   };
 
+  const exportPlaylistAsTxt = () => {
+    let titles = [];
+    playlistVideos.map((video) => {
+      titles.push(video.title);
+    });
+
+    saveAs(
+      new Blob([titles.join('\n')], {
+        type: 'text/plain;charset=utf-8',
+      }),
+      `${playlistTitle}.txt`
+    );
+  };
+
   useEffect(() => {
     if (successfulTransfer) {
       setTimeout(() => {
@@ -217,10 +232,10 @@ const PlaylistInfo = ({ playlistId }) => {
                 <img src={TransferIcon} alt='' className='btn-icon' />
                 <span className='btn-text'>Transfer</span>
               </Link>
-              <a className='link-btn' href='https://youfyapp.com'>
+              <Link onClick={exportPlaylistAsTxt} className='link-btn'>
                 <img src={ExportIcon} alt='' className='btn-icon' />
                 <span className='btn-text'>Export</span>
-              </a>
+              </Link>
             </div>
           </>
         ) : isTransferClicked ? (

@@ -24,8 +24,9 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "storage",
     "identity",
-    "https://accounts.spotify.com/*"
+    "cookies",
+    "https://accounts.spotify.com/*",
+    "https://*.youfyapp.com/*"
   ]
 }

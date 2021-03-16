@@ -5,16 +5,19 @@ import OneSongFromPl from './OneSongFromPl';
 import TransferIcon from '../images/transfer.svg';
 import ExportIcon from '../images/export-icon.svg';
 import { formatTitle } from '../utils/formats';
-import { YT_API_KEY, token } from '../utils/gets';
+import { YT_API_KEY } from '../utils/gets';
 import { Link } from 'react-router-dom';
-import { PlaylistSongsContext } from '../utils/contexts';
+import {
+  AuthContext,
+  PlaylistSongsContext,
+  UserContext,
+} from '../utils/contexts';
 
 import Checkmark from '../images/checkmark.svg';
 import Cross from '../images/cross.svg';
 
 const PlaylistInfo = ({ playlistId }) => {
   const songsList = useRef();
-  const userId = 'yilxfvdt11z0c1myy94cyz6n6';
 
   const [playlistTitle, setPlaylistTitle] = useState(null); // title of the playlist
   const [playlistDesc, setPlaylistDesc] = useState(null); // title of the playlist
@@ -28,6 +31,8 @@ const PlaylistInfo = ({ playlistId }) => {
   const [successfulTransfer, setSuccessfulTransfer] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const { selectedSongs, setSelectedSongs } = useContext(PlaylistSongsContext);
+  const { token } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   const data = JSON.stringify({
     name: playlistTitle,
@@ -57,7 +62,7 @@ const PlaylistInfo = ({ playlistId }) => {
 
   const spotifyCreatePlaylistConfig = {
     method: 'post',
-    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    url: `https://api.spotify.com/v1/users/${user.id}/playlists`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -259,7 +264,7 @@ const PlaylistInfo = ({ playlistId }) => {
               <>
                 <h1 className='msg'>
                   Do you want to convert the selected songs as
-                  <span> "{playlistTitle}" </span>to Spotify?
+                  <span> "{playlistTitle}" </span> playlist to Spotify?
                 </h1>
                 <div className='btns'>
                   <Link

@@ -3,8 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import PlImg1 from '../images/song-album.jpg';
 import PlusBig from '../images/plus-big.svg';
 import { useHistory } from 'react-router';
-import { token } from '../utils/gets';
-import { SongContext } from '../utils/contexts';
+import { AuthContext, SongContext } from '../utils/contexts';
 import { Link } from 'react-router-dom';
 
 import Checkmark from '../images/checkmark.svg';
@@ -14,7 +13,8 @@ const ChoosePlaylist = () => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPl, setSelectedPl] = useState(null);
   const [songAdded, setSongAdded] = useState(false);
-  const { currentSong, setCurrentSong } = useContext(SongContext);
+  const { currentSong } = useContext(SongContext);
+  const { token } = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -53,7 +53,6 @@ const ChoosePlaylist = () => {
     axios(userPlaylistsConfig)
       .then((response) => {
         setPlaylists(response.data.items);
-        console.log(response.data.items);
       })
       .catch((error) => {
         console.log(error);
@@ -72,7 +71,6 @@ const ChoosePlaylist = () => {
     axios(addPlConfig)
       .then((response) => {
         setSongAdded(true);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

@@ -1,19 +1,21 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { token } from '../utils/gets';
 import Layout from '../components/Layout';
 
 import PlaylistImg from '../images/playlist-d-img.svg';
 import Checkmark from '../images/checkmark.svg';
 import Cross from '../images/cross.svg';
+import { AuthContext, UserContext } from '../utils/contexts';
 
 const AddNewPlaylist = () => {
-  const userId = 'yilxfvdt11z0c1myy94cyz6n6';
   const [plName, setPlName] = useState(null);
   const [plDesc, setPlDesc] = useState(null);
   const [playlistCreated, setPlaylistCreated] = useState(false);
+  const { token } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+
   const history = useHistory();
 
   const handlePlName = (e) => {
@@ -31,7 +33,7 @@ const AddNewPlaylist = () => {
 
   const config = {
     method: 'post',
-    url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+    url: `https://api.spotify.com/v1/users/${user.id}/playlists`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../utils/contexts';
 import { SP_GET_AUTH, SP_CODE_KEY, setCookie, getCookie } from '../utils/gets';
+import DP from '../images/song-album.jpg';
 
 const Navbar = () => {
   const { token, setToken } = useContext(AuthContext);
@@ -56,8 +58,20 @@ const Navbar = () => {
 
   return (
     <nav className='navbar'>
-      <h1 className='logo-text'>Youfy</h1>
-      {user ? <h2>{user.display_name}</h2> : <h2 onClick={signIn}>Sign In</h2>}
+      <Link to='/' className='logo-text'>
+        Youfy
+      </Link>
+      {user ? (
+        <div className='user-profile'>
+          <img
+            src={user.images[0] ? user.images[0].url : DP}
+            alt={user.display_name}
+          />
+          <span>{user.display_name}</span>
+        </div>
+      ) : (
+        <></>
+      )}
     </nav>
   );
 };

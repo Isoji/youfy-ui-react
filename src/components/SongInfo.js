@@ -1,9 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { SongContext } from '../utils/contexts';
+import { AuthContext, SongContext } from '../utils/contexts';
 import { formatTitle, toMinutes } from '../utils/formats';
-import { token } from '../utils/gets';
 import Layout from './Layout';
 
 //images
@@ -20,6 +19,7 @@ const SongInfo = () => {
   const [more, setMore] = useState(false);
   const [songFound, setSongFound] = useState(true);
   const { currentSong, setCurrentSong } = useContext(SongContext);
+  const { token } = useContext(AuthContext);
 
   const songQueryConfig = {
     method: 'get',
@@ -46,7 +46,6 @@ const SongInfo = () => {
     songName &&
       axios(songQueryConfig)
         .then((response) => {
-          console.log(response.data.tracks);
           if (response.data.tracks.items[0]) {
             setSongs(response.data.tracks.items);
             setCurrentSong(response.data.tracks.items[0]);
@@ -66,7 +65,6 @@ const SongInfo = () => {
   useEffect(() => {
     getTitle();
     getSong();
-    console.log(songName);
     /* eslint-disable */
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
       setUrl(tabs[0].url);
@@ -85,7 +83,6 @@ const SongInfo = () => {
                 className='song-img'
               />
               <div className='song-details'>
-                {/* <span className='song-type'>{currentSong.type}</span> */}
                 <h1 className='song-title'>{currentSong.name}</h1>
                 <p className='song-artist'>{currentSong.artists[0].name}</p>
                 <p className='song-duration'>

@@ -6,3 +6,25 @@
   flex-direction: column;
   gap: $d-gap;
 }
+
+.login-page {
+  max-width: 592px;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6rem 4.6rem;
+  gap: calc(#{$d-gap}/ 1.5);
+  .btn {
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: $primary-color;
+    color: $white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: $d-radius;
+    cursor: pointer;
+  }
+}

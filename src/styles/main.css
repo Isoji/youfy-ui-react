@@ -18,11 +18,6 @@ h2 {
   font-weight: 600;
 }
 
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 800;
-}
-
 .link-btn {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,6 +107,38 @@ ul {
   gap: 2rem;
 }
 
+.login-page {
+  max-width: 592px;
+  max-height: 480px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 6rem 4.6rem;
+  gap: calc(2rem/ 1.5);
+}
+
+.login-page .btn {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: #8c30f5;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .navbar {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -124,21 +151,29 @@ ul {
           align-items: center;
 }
 
-.navbar .searchbar {
-  font-size: 1.05rem;
-  display: block;
-  width: 56%;
-  background-color: #e4e4e4 !important;
-  background-position: 9px 11px !important;
-  padding: 0.4rem 0 0.4rem 1.9rem;
-  border: none;
-  border-radius: 4px;
-  color: #979797;
+.navbar .logo-text {
+  color: #000000;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
-.navbar .searchbar:focus {
-  outline: none;
-  color: #000000;
+.navbar .user-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.navbar .user-profile img {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 11rem;
+}
+
+.navbar .user-profile span {
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .song-info {
@@ -456,7 +491,7 @@ footer a:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 1.1rem;
+  gap: 0.7rem;
   padding-top: 1.1rem;
 }
 
@@ -477,7 +512,8 @@ footer a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 1.1rem;
+  gap: 0.7rem;
+  width: 20rem;
 }
 
 .transfer-playlist .playlist-info .playlist-container .playlist-img {
@@ -493,7 +529,7 @@ footer a:hover {
 .transfer-playlist .playlist-info .playlist-container .playlist-details h1 {
   font-weight: 800;
   color: #000000;
-  line-height: 1.5rem;
+  line-height: 2.1rem;
   margin-bottom: calc(2.1 * 0.25rem);
 }
 
@@ -610,7 +646,7 @@ footer a:hover {
 
 .transfer-playlist .playlist-info .playlist-songs {
   min-width: 20rem;
-  max-height: 151px;
+  max-height: 10rem;
   padding-right: 0.4rem;
   overflow-y: scroll;
 }
@@ -719,8 +755,6 @@ footer a:hover {
 }
 
 .add-new-playlist .new-playlist-form .text .btns .link-btn {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  padding: 0;
 }
 /*# sourceMappingURL=main.css.map */

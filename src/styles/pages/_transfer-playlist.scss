@@ -16,7 +16,7 @@ $b-rad: calc(#{$d-radius} / 2);
   }
   .playlist-info {
     display: flex;
-    gap: 1.1rem;
+    gap: 0.7rem;
     padding-top: 1.1rem;
     .lbl {
       font-size: 1.4rem;
@@ -29,7 +29,8 @@ $b-rad: calc(#{$d-radius} / 2);
     .playlist-container {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
+      gap: 0.7rem;
+      width: 20rem;
       .playlist-img {
         width: 151px;
         height: 151px;
@@ -40,7 +41,7 @@ $b-rad: calc(#{$d-radius} / 2);
         h1 {
           font-weight: 800;
           color: $black;
-          line-height: 1.5rem;
+          line-height: 2.1rem;
           margin-bottom: $mb-2;
         }
         p {
@@ -129,7 +130,7 @@ $b-rad: calc(#{$d-radius} / 2);
 
     .playlist-songs {
       min-width: 20rem;
-      max-height: 151px;
+      max-height: 10rem;
       padding-right: 0.4rem;
       overflow-y: scroll;
     }

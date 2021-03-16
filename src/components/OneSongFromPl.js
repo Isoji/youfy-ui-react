@@ -17,7 +17,7 @@ const OneSongFromPl = ({ selectedAll, song }) => {
   };
 
   useEffect(() => {
-    if (selectedAll) {
+    if (selectedAll && !checked) {
       setChecked(true);
       setSelectedSongs((selectedSongs) => [...selectedSongs, song.uri]);
     } else if (!selectedAll) {

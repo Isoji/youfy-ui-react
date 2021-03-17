@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 
 import PlaylistImg from '../images/playlist-d-img.svg';
 import Checkmark from '../images/checkmark.svg';
-import Cross from '../images/cross.svg';
 import { AuthContext, UserContext } from '../utils/contexts';
 
 const AddNewPlaylist = () => {
@@ -89,13 +88,11 @@ const AddNewPlaylist = () => {
                     onChange={handlePlDesc}
                   ></textarea>
                   <div className='btns'>
-                    <Link onClick={createPlaylist} className='link-btn'>
-                      <img src={Checkmark} alt='' className='btn-icon' />
-                      <span className='btn-text'>Create</span>
-                    </Link>
-                    <Link to='/add-to-playlist' className='link-btn'>
-                      <img src={Cross} alt='' className='btn-icon' />
-                      <span className='btn-text'>Cancel</span>
+                    <button onClick={createPlaylist} className='btn'>
+                      Create
+                    </button>
+                    <Link to='/add-to-playlist' className='btn'>
+                      Cancel
                     </Link>
                   </div>
                 </div>

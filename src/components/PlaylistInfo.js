@@ -272,17 +272,15 @@ const PlaylistInfo = ({ playlistId }) => {
                       (() => setSelectedSongs(selectedSongs.join(', ')),
                       createSpotifyPlaylist)
                     }
-                    className='link-btn'
+                    className='btn'
                   >
-                    <img src={Checkmark} alt='' className='btn-icon' />
-                    <span className='btn-text'>Yes</span>
+                    Yes
                   </Link>
                   <Link
                     onClick={() => setIsTransferClicked(false)}
-                    className='link-btn'
+                    className='btn'
                   >
-                    <img src={Cross} alt='' className='btn-icon' />
-                    <span className='btn-text'>No</span>
+                    No
                   </Link>
                 </div>
               </>

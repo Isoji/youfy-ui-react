@@ -84,10 +84,6 @@ $pl-h: 342px;
     align-items: center;
     flex-direction: column;
     gap: 1rem;
-    .success-icon {
-      width: 2rem;
-      height: auto;
-    }
     .msg {
       text-align: center;
     }
@@ -97,11 +93,9 @@ $pl-h: 342px;
       align-items: center;
       flex-direction: row;
       gap: 1rem;
-      .link-btn {
-        span {
-          font-size: 1rem;
-          font-weight: 700;
-        }
+
+      .btn {
+        padding: 0.5rem 2rem;
       }
     }
   }

@@ -68,14 +68,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    getCookie().then((res) => {
-      if (res) {
-        setToken(res.value);
-      }
-    });
     if (token) {
       setCookie(token);
       getUser();
+    } else {
+      getCookie().then((res) => {
+        if (res) {
+          setToken(res.value);
+        }
+      });
     }
   }, [token]);
 

@@ -13,6 +13,7 @@ const ChoosePlaylist = () => {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPl, setSelectedPl] = useState(null);
   const [songAdded, setSongAdded] = useState(false);
+  const [noPlaylists, setNoPlaylists] = useState(false);
   const { currentSong } = useContext(SongContext);
   const { token } = useContext(AuthContext);
 
@@ -53,6 +54,11 @@ const ChoosePlaylist = () => {
     axios(userPlaylistsConfig)
       .then((response) => {
         setPlaylists(response.data.items);
+        if (response.data.items) {
+          if (response.data.items.length === 0) {
+            setNoPlaylists(true);
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -109,13 +115,11 @@ const ChoosePlaylist = () => {
                   <span> {selectedPl.playlistName}</span>?
                 </h1>
                 <div className='btns'>
-                  <Link onClick={addToPlaylist} className='link-btn'>
-                    <img src={Checkmark} alt='' className='btn-icon' />
-                    <span className='btn-text'>Yes</span>
+                  <Link onClick={addToPlaylist} className='btn'>
+                    Yes
                   </Link>
-                  <Link onClick={goBack} className='link-btn'>
-                    <img src={Cross} alt='' className='btn-icon' />
-                    <span className='btn-text'>No</span>
+                  <Link onClick={goBack} className='btn'>
+                    No
                   </Link>
                 </div>
               </>
@@ -124,6 +128,12 @@ const ChoosePlaylist = () => {
         ) : (
           <>
             <h1>Choose a Playlist</h1>
+            {noPlaylists ? (
+              <p>
+                You don't have any playlists in your Spotify library, Please
+                create a new playlist.
+              </p>
+            ) : null}
             <div className='playlists'>
               <div className='one-playlist first' onClick={goToNP}>
                 <img src={PlusBig} alt='' className='playlist-img' />

@@ -41,6 +41,10 @@ h2 {
   font-weight: 600;
 }
 
+a {
+  text-decoration: none;
+}
+
 .link-btn {
   display: flex;
   justify-content: center;
@@ -78,6 +82,22 @@ ul {
 
 .loading {
   text-align: center;
+}
+
+.btn {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: $primary-color;
+  color: $white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: $d-radius;
+  cursor: pointer;
+}
+
+.success-icon {
+  width: 3rem !important;
+  height: auto;
 }
 
 //scrollbar

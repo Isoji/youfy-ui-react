@@ -18,6 +18,7 @@ const SongInfo = () => {
   const [url, setUrl] = useState(null);
   const [more, setMore] = useState(false);
   const [songFound, setSongFound] = useState(true);
+  const [oneSongFound, setOneSongFound] = useState(false);
   const { currentSong, setCurrentSong } = useContext(SongContext);
   const { token } = useContext(AuthContext);
 
@@ -47,10 +48,15 @@ const SongInfo = () => {
       axios(songQueryConfig)
         .then((response) => {
           if (response.data.tracks.items[0]) {
+            setOneSongFound(true);
             setSongs(response.data.tracks.items);
             setCurrentSong(response.data.tracks.items[0]);
+            console.log(songName);
           } else {
-            setSongFound(false);
+            let tempSong = songName;
+            console.log(tempSong.split(' ').length);
+            tempSong = tempSong.substr(0, tempSong.lastIndexOf(' '));
+            setSongName(tempSong);
           }
         })
         .catch((error) => {
@@ -64,12 +70,19 @@ const SongInfo = () => {
 
   useEffect(() => {
     getTitle();
-    getSong();
     /* eslint-disable */
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
       setUrl(tabs[0].url);
     });
-  }, [url, songName]);
+  }, [url]);
+
+  useEffect(() => {
+    if (!oneSongFound) {
+      getSong();
+    } else {
+      songFound(false);
+    }
+  }, [songName]);
 
   return (
     <Layout>

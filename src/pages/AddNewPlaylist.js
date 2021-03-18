@@ -32,7 +32,7 @@ const AddNewPlaylist = () => {
 
   const config = {
     method: 'post',
-    url: `https://api.spotify.com/v1/users/${user.id}/playlists`,
+    url: `https://api.spotify.com/v1/users/${user && user.id}/playlists`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

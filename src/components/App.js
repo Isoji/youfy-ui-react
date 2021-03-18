@@ -82,7 +82,7 @@ const App = () => {
 
   return (
     <Router>
-      {token && user ? (
+      {token ? (
         <Suspense fallback={<h1>Loading...</h1>}>
           <Switch>
             <AuthContext.Provider value={authValue}>

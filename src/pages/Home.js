@@ -8,6 +8,7 @@ import { getPlId } from '../utils/gets';
 
 const Home = () => {
   const [url, setUrl] = useState(null);
+  /* eslint-disable */
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
     setUrl(tabs[0].url);
   });

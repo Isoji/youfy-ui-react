@@ -20,7 +20,7 @@ const PlaylistInfo = ({ playlistId }) => {
   const songsList = useRef();
 
   const [playlistTitle, setPlaylistTitle] = useState(null); // title of the playlist
-  const [playlistDesc, setPlaylistDesc] = useState(null); // title of the playlist
+  const [playlistDesc, setPlaylistDesc] = useState(null); // description of the playlist
   const [playlistVideos, setPlaylistVideos] = useState([]); // playlist video objects from the playlist
   const [songTitle, setSongTitle] = useState(null); // title of the current song to be used for Spotify API query
   const [selectedAll, setSelectedAll] = useState(false);
@@ -199,7 +199,6 @@ const PlaylistInfo = ({ playlistId }) => {
     <>
       <div className='transfer-playlist'>
         {playlistTitle &&
-        playlistDesc &&
         playlistVideos.length > 0 &&
         spotifySongs.length > 0 &&
         !isTransferClicked ? (
@@ -210,7 +209,7 @@ const PlaylistInfo = ({ playlistId }) => {
                 <h2 className='lbl'>Youtube Playlist</h2>
                 <div className='playlist-container'>
                   <img
-                    src={playlistVideos[0].thumbnails.default.url}
+                    src={playlistVideos[0].thumbnails.high.url}
                     alt=''
                     className='playlist-img'
                   />

@@ -63,7 +63,7 @@ const App = () => {
         setUser(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       });
   };
 

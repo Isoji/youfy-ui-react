@@ -6,7 +6,6 @@ import { formatTitle, toMinutes } from '../utils/formats';
 import Layout from './Layout';
 
 //images
-import AlbumArt from '../images/song-album.jpg';
 import PlayIcon from '../images/play.svg';
 import PlusIcon from '../images/plus.svg';
 import MoreIcon from '../images/more.svg';
@@ -51,16 +50,14 @@ const SongInfo = () => {
             setOneSongFound(true);
             setSongs(response.data.tracks.items);
             setCurrentSong(response.data.tracks.items[0]);
-            console.log(songName);
           } else {
             let tempSong = songName;
-            console.log(tempSong.split(' ').length);
             tempSong = tempSong.substr(0, tempSong.lastIndexOf(' '));
             setSongName(tempSong);
           }
         })
         .catch((error) => {
-          console.log(error);
+          /* console.log(error); */
         });
   };
 
@@ -80,7 +77,7 @@ const SongInfo = () => {
     if (!oneSongFound) {
       getSong();
     } else {
-      songFound(false);
+      setSongFound(false);
     }
   }, [songName]);
 

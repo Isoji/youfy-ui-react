@@ -95,14 +95,18 @@ const PlaylistInfo = ({ playlistId }) => {
           setSongTitle(formatTitle(obj.snippet.title)); // Setting the formatted song title into songTitle state
         });
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        /* console.log('error', error) */
+      });
 
     axios(youtubePlaylistsConfig) // gathering data using the playlists GET request
       .then((response) => {
         setPlaylistTitle(response.data.items[0].snippet.title); // Setting the playlist title into playlistTitle state
         setPlaylistDesc(response.data.items[0].snippet.description); // Setting the playlist description into playlistDesc state
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        /* console.log('error', error) */
+      });
   };
 
   const getSpotifyData = () => {
@@ -117,7 +121,9 @@ const PlaylistInfo = ({ playlistId }) => {
             ]);
           }
         })
-        .catch((error) => console.log('error', error));
+        .catch((error) => {
+          /* console.log('error', error) */
+        });
   };
 
   const createSpotifyPlaylist = () => {
@@ -126,7 +132,7 @@ const PlaylistInfo = ({ playlistId }) => {
         setTargetPlaylistId(response.data.id);
       })
       .catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       });
   };
 
@@ -136,7 +142,7 @@ const PlaylistInfo = ({ playlistId }) => {
         setSuccessfulTransfer(true);
       })
       .catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       });
   };
 

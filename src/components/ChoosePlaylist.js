@@ -61,7 +61,7 @@ const ChoosePlaylist = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       });
   };
 
@@ -79,7 +79,7 @@ const ChoosePlaylist = () => {
         setSongAdded(true);
       })
       .catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       });
   };
 

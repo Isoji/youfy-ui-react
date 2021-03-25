@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Youfy",
+  "name": "Youfy - YouTube to Spotify",
   "version": "1.0.0",
   "icons": {
     "16": "youfy-logo.png",

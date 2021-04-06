@@ -7,11 +7,13 @@
     "48": "youfy-logo.png",
     "128": "youfy-logo-128.png"
   },
-
   "browser_action": {
     "default_popup": "index.html"
   },
-
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "permissions": [
     "activeTab",
     "tabs",

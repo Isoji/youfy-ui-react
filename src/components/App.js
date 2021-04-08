@@ -32,7 +32,10 @@ const App = () => {
     [selectedSongs, setSelectedSongs]
   );
 
+  const [btnLoading, setBtnLoading] = useState(false);
+
   const signIn = () => {
+    setBtnLoading(true);
     /* eslint-disable */
     chrome.identity.launchWebAuthFlow(
       {
@@ -41,9 +44,13 @@ const App = () => {
       },
       (redirect_url) => {
         /* Extract token from redirect_url */
-        const redURL = new URLSearchParams(redirect_url);
-        const authCode = redURL.get(SP_CODE_KEY);
-        setToken(authCode);
+        if (redirect_url) {
+          const redURL = new URLSearchParams(redirect_url);
+          const authCode = redURL.get(SP_CODE_KEY);
+          setToken(authCode);
+        } else {
+          setBtnLoading(false);
+        }
       }
     );
   };
@@ -108,9 +115,13 @@ const App = () => {
       ) : (
         <div className='login-page'>
           <h1>Please sign in to transfer your favorite songs to Spotify</h1>
-          <button onClick={signIn} className='btn'>
-            Sign in to Spotify
-          </button>
+          {btnLoading ? (
+            <button className='btn'>Loading...</button>
+          ) : (
+            <button onClick={signIn} className='btn'>
+              Sign in to Spotify
+            </button>
+          )}
         </div>
       )}
     </Router>

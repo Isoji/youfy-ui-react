@@ -25,6 +25,7 @@ export const formatTitle = (title) => {
     'live performance',
     'live session',
     'live in',
+    'ft',
     'feat',
     'featuring',
     '\\.',

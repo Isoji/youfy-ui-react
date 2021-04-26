@@ -119,6 +119,12 @@ const PlaylistInfo = ({ playlistId }) => {
               ...spotifySongs,
               response.data.tracks.items[0],
             ]);
+          } else {
+            if (songTitle != '') {
+              let tempTitle = songTitle;
+              tempTitle = tempTitle.substr(0, tempTitle.lastIndexOf(' '));
+              setSongTitle(tempTitle);
+            }
           }
         })
         .catch((error) => {
@@ -230,7 +236,7 @@ const PlaylistInfo = ({ playlistId }) => {
               <div className='line'></div>
               <div className='right'>
                 <div className='header'>
-                  <h2 className='lbl'>Detected Songs</h2>
+                  <h2 className='lbl'>{spotifySongs.length} Detected Songs</h2>
                   <input
                     type='button'
                     value={selectedAll ? 'Unselect all' : 'Select all'}
